@@ -19,6 +19,7 @@ use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Statikbe\FilamentTranslationManager\FilamentChainedTranslationManagerPlugin;
 use Swis\Filament\Backgrounds\FilamentBackgroundsPlugin;
+use Swis\Filament\Backgrounds\ImageProviders\MyImages;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -29,6 +30,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+            ->profile()
             ->colors([
                 'primary' => Color::Green,
             ])
@@ -45,6 +47,10 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->plugins([
                 FilamentBackgroundsPlugin::make()
+                ->imageProvider(
+                    MyImages::make()
+                        ->directory('images/backgrounds')
+                )
                 ->showAttribution(false),
             ])
             ->middleware([
