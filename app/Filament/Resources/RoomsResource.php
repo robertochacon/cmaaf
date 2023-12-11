@@ -22,7 +22,7 @@ class RoomsResource extends Resource
 {
     protected static ?string $model = Rooms::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-map';
+    protected static ?string $navigationIcon = 'heroicon-o-clipboard-document';
 
     protected static ?string $navigationGroup = 'Salas';
 
@@ -66,5 +66,10 @@ class RoomsResource extends Resource
         return [
             'index' => Pages\ManageRooms::route('/'),
         ];
+    }
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
     }
 }

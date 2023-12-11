@@ -57,10 +57,16 @@ class ShiftsResource extends Resource
                 ]),
             ]);
     }
+
     public static function getPages(): array
     {
         return [
             'index' => Pages\ManageShifts::route('/'),
         ];
+    }
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::where('status', ['call','wait'])->count();
     }
 }

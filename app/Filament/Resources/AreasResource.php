@@ -67,4 +67,9 @@ class AreasResource extends Resource
             'index' => Pages\ManageAreas::route('/'),
         ];
     }
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
 }
