@@ -4,13 +4,18 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ShiftsResource\Pages;
 use App\Filament\Resources\ShiftsResource\RelationManagers;
+use App\Models\Areas;
+use App\Models\Rooms;
+use App\Models\Services;
 use App\Models\Shifts;
 use Filament\Forms;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\TextInputColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -31,7 +36,21 @@ class ShiftsResource extends Resource
     {
         return $form
             ->schema([
+                TextInput::make('identification')->required(),
                 TextInput::make('name')->required(),
+                Select::make('service')
+                ->label('Servicios')
+                ->options(Services::all()->pluck('name'))
+                ->searchable(),
+                Select::make('room')
+                ->label('Sala')
+                ->options(Rooms::all()->pluck('name'))
+                ->searchable(),
+                Select::make('area')
+                ->label('Area')
+                ->options(Areas::all()->pluck('name'))
+                ->searchable(),
+                TextInput::make('window')->numeric(),
             ]);
     }
 
@@ -39,10 +58,16 @@ class ShiftsResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name')->label('Nombre')
+                TextColumn::make('code')->label('Codigo')
                 ->searchable(),
+                TextColumn::make('service')->label('Servicio'),
+                TextColumn::make('room')->label('Sala'),
+                TextColumn::make('area')->label('Area'),
+                // TextInputColumn::make('window')->label('Ventana')->rules(['numeric']),
                 TextColumn::make('created_at')->since()->label('Creado'),
             ])
+            ->poll('10s')
+            ->deferLoading()
             ->filters([
                 //
             ])

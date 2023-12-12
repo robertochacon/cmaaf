@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('code')->nullable();
             $table->string('service')->nullable();
             $table->string('note')->nullable();
+            $table->string('room')->nullable();
+            $table->string('area')->nullable();
             $table->string('window')->nullable();
             $table->enum('status',['call','wait','done','cancel'])->default('wait');
             $table->timestamps();
