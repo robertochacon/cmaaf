@@ -24,3 +24,4 @@ Route::get('/login', function () {
 
 Route::get('/request', [ShiftsController::class, 'request']);
 Route::post('/request', [ShiftsController::class, 'save'])->name('request');
+Route::get('/screen', [ShiftsController::class, 'screen']);

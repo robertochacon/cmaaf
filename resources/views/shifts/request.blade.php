@@ -19,7 +19,7 @@
 
     <div class="row justify-content-center centro">
 
-        <div class="col-8 row justify-content-center" id="first-form">
+        <div class="col-10 row justify-content-center" id="first-form">
 
             <div class="col-12 pb-2 p-5">
                 <h1 class="text-success"><b>Introduzca su cedula</b></h1>
@@ -101,7 +101,7 @@
 
         </div>
 
-        <div class="col-8 row justify-content-center" style="display: none" id="second-form">
+        <div class="col-10 row justify-content-center" style="display: none" id="second-form">
 
             <div class="row justify-content-around p-5">
 

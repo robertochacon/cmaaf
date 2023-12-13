@@ -15,6 +15,7 @@
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
+        "livewire/livewire": "^3.3",
         "psr/simple-cache": "^2.0",
         "pxlrbt/filament-excel": "^2.1",
         "statikbe/laravel-filament-chained-translation-manager": "^3.1",

@@ -22,6 +22,14 @@ class ShiftsController extends Controller
         $shift->code = $request->acronym.'-'.($totalToday+1);
         $shift->save();
 
-        return view('shifts.done', compact(['request']));
+        $date['date'] = Carbon::now()->format('d-m-Y');
+        $date['hour'] = Carbon::now()->format('H:i:m');
+
+        return view('shifts.done', compact(['shift','date']));
+    }
+
+    public function screen(){
+        $shifts = Shifts::whereDate('created_at', Carbon::today())->orderBy('id','DESC')->limit(5)->get();
+        return view('shifts.screen', compact(['shifts']));
     }
 }
