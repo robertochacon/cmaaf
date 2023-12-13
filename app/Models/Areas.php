@@ -13,6 +13,7 @@ class Areas extends Model
 
     protected $fillable = [
         'name',
+        'acronym',
         'status',
     ];
 }

@@ -36,8 +36,8 @@ class ShiftsResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('identification')->required(),
-                TextInput::make('name')->required(),
+                TextInput::make('identification')->label('Cédula')->required(),
+                TextInput::make('name')->label('Nombre')->required(),
                 Select::make('service')
                 ->label('Servicios')
                 ->options(Services::all()->pluck('name'))
@@ -50,7 +50,7 @@ class ShiftsResource extends Resource
                 ->label('Area')
                 ->options(Areas::all()->pluck('name'))
                 ->searchable(),
-                TextInput::make('window')->numeric(),
+                TextInput::make('window')->label('Posición')->numeric(),
             ]);
     }
 
@@ -58,15 +58,31 @@ class ShiftsResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('code')->label('Codigo')
+                TextColumn::make('code')
+                ->default('N/A')
+                ->label('Codigo')
                 ->searchable(),
-                TextColumn::make('service')->label('Servicio'),
-                TextColumn::make('room')->label('Sala'),
-                TextColumn::make('area')->label('Area'),
-                // TextInputColumn::make('window')->label('Ventana')->rules(['numeric']),
-                TextColumn::make('created_at')->since()->label('Creado'),
+                TextColumn::make('identification')
+                ->default('N/A')
+                ->label('Cédula')
+                ->searchable(),
+                TextColumn::make('service')
+                ->default('N/A')
+                ->label('Servicio'),
+                TextColumn::make('room')
+                ->default('N/A')
+                ->label('Sala'),
+                TextColumn::make('area')
+                ->default('N/A')
+                ->label('Area'),
+                TextColumn::make('window')
+                ->default('N/A')
+                ->label('Posición'),
+                TextColumn::make('created_at')
+                ->since()
+                ->label('Creado'),
             ])
-            ->poll('10s')
+            ->poll('5s')
             ->deferLoading()
             ->filters([
                 //

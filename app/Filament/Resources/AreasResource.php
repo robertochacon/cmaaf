@@ -33,6 +33,7 @@ class AreasResource extends Resource
         return $form
             ->schema([
                 TextInput::make('name')->required(),
+                TextInput::make('acronym')->required(),
                 Toggle::make('status')
             ]);
     }
@@ -42,6 +43,8 @@ class AreasResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('name')->label('Nombre')
+                ->searchable(),
+                TextColumn::make('acronym')->label('Siglas')
                 ->searchable(),
                 TextColumn::make('created_at')->since()->label('Creado'),
                 ToggleColumn::make('status')->label('Estado')

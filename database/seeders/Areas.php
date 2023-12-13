@@ -15,26 +15,31 @@ class Areas extends Seeder
     {
         ModelsAreas::create([
             'name' => 'Facturación',
+            'acronym' => 'FAC',
             'created_at' => date("Y-m-d H:i:s")
         ]);
 
         ModelsAreas::create([
             'name' => 'Laboratorio',
+            'acronym' => 'LAB',
             'created_at' => date("Y-m-d H:i:s")
         ]);
 
         ModelsAreas::create([
             'name' => 'Imágenes',
+            'acronym' => 'IMA',
             'created_at' => date("Y-m-d H:i:s")
         ]);
 
         ModelsAreas::create([
             'name' => 'Consultas',
+            'acronym' => 'CON',
             'created_at' => date("Y-m-d H:i:s")
         ]);
 
         ModelsAreas::create([
             'name' => 'Resultados',
+            'acronym' => 'RES',
             'created_at' => date("Y-m-d H:i:s")
         ]);
 
