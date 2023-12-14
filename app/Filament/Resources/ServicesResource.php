@@ -6,6 +6,7 @@ use App\Filament\Resources\ServicesResource\Pages;
 use App\Filament\Resources\ServicesResource\RelationManagers;
 use App\Models\Services;
 use Filament\Forms;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
@@ -33,6 +34,12 @@ class ServicesResource extends Resource
         return $form
             ->schema([
                 TextInput::make('name')->required(),
+                Select::make('type')
+                ->options([
+                    'image' => 'Imagen',
+                    'laboratory' => 'Laboratorio',
+                    'consultation' => 'Consultas',
+                ]),
                 Toggle::make('status')
             ]);
     }

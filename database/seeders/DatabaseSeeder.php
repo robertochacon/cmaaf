@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
             Users::class,
             Areas::class,
             Rooms::class,
+            Services::class,
         ]);
     }
 }

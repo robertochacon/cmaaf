@@ -23,30 +23,23 @@
 
     <div class="col-12 pb-0 p-4 text-center">
         <div class="row justify-content-between align-items-center">
-            <div class="col-6 text-start">
-                <h4 class="text-secondary"><b>Sala {{ $room }}</b></h4>
-                <h1 class="text-success"><b>Lista de turnos</b></h1>
-            </div>
-            <div class="col-6 text-end">
-                @livewire('timer')
+            <div class="col-12 text-center">
+                <h1 class="text-success"><b>Salas disponibles</b></h1>
             </div>
         </div>
     </div>
 
-    <div class="col-6 row justify-content-center">
+    <div class="row justify-content-around">
 
-        @livewire('shifts')
-
-    </div>
-
-    <div class="col-6 row justify-content-center">
-
-
-        <iframe width="560" height="515" src="https://www.youtube.com/embed/oTXbu7EKqQA?si=_tb3COc0AQMViMxa?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;" allowfullscreen></iframe>
-
+        @foreach ($rooms as $room)
+            <div class="col-4 p-2">
+                <a href="{{ url('sala/'.$room['id']) }}" type="submit" style="text-decoration: none" class="container border-0 p-3 rounded shadow bg-secondary text-center text-white">
+                    <h1><b>{{ $room['name'] }}</b></h1>
+                </a>
+            </div>
+        @endforeach
 
     </div>
 
 </div>
 
-@livewireScripts

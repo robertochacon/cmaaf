@@ -22,6 +22,7 @@ Route::get('/login', function () {
     return redirect('/admin/login');
 })->name('login');
 
-Route::get('/request', [ShiftsController::class, 'request']);
+Route::get('/turnos', [ShiftsController::class, 'request']);
 Route::post('/request', [ShiftsController::class, 'save'])->name('request');
-Route::get('/screen', [ShiftsController::class, 'screen']);
+Route::get('/salas', [ShiftsController::class, 'roomScreens']);
+Route::get('/sala/{room}', [ShiftsController::class, 'screen']);

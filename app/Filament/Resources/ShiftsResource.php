@@ -36,8 +36,8 @@ class ShiftsResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('identification')->label('Cédula')->required(),
-                TextInput::make('name')->label('Nombre')->required(),
+                TextInput::make('identification')->label('Cédula'),
+                TextInput::make('name')->label('Nombre'),
                 Select::make('service')
                 ->label('Servicios')
                 ->options(Services::all()->pluck('name'))
