@@ -17,7 +17,7 @@ class ShiftsController extends Controller
 
     public function save(Request $request){
 
-        $totalToday = Shifts::whereDate('created_at', Carbon::today())->count();
+        $totalToday = Shifts::where('area', $request->area)->whereDate('created_at', Carbon::today())->count();
 
         $shift = Shifts::create($request->all());
         $shift->code = $request->acronym.'-'.($totalToday+1);

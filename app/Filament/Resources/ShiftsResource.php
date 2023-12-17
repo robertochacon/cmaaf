@@ -14,10 +14,12 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\TextInputColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
+use Illuminate\Broadcasting\BroadcastEvent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
@@ -37,7 +39,7 @@ class ShiftsResource extends Resource
         return $form
             ->schema([
                 TextInput::make('identification')->label('Cédula'),
-                TextInput::make('name')->label('Nombre'),
+                TextInput::make('patient_name')->label('Nombre'),
                 Select::make('service')
                 ->label('Servicios')
                 ->options(Services::all()->pluck('name'))
@@ -88,6 +90,12 @@ class ShiftsResource extends Resource
                 //
             ])
             ->actions([
+                Action::make('Llamar')
+                ->action(function (Shifts $record, array $data): void {
+
+                    event(new BroadcastEvent($record->code));
+
+                }),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])

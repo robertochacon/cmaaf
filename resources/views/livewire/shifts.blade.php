@@ -1,6 +1,6 @@
 <div>
 
-    <div class="row justify-content-around" wire:poll.1s>
+    <div class="row justify-content-around" wire:poll.100ms>
 
         @foreach ($shifts as $shift)
             <div class="d-flex justify-content-around p-2 mt-3 shadow rounded">
@@ -9,11 +9,11 @@
                         <h1><b>{{ $shift['code'] }}</b></h1>
                     </button>
                 </div>
-                <div class="col-0 d-flex align-items-center">
+                {{-- <div class="col-0 d-flex align-items-center">
                     <h3><b>Sala {{ $shift['room'] ?? 'N/A' }}</b></h3>
-                </div>
+                </div> --}}
                 <div class="col-0 d-flex align-items-center">
-                    <h3><b>Posición {{ $shift['window'] ?? 'N/A' }}</b></h3>
+                    <h3><b>Posición {{ $shift['window'] ?? '0' }}</b></h3>
                 </div>
             </div>
         @endforeach
