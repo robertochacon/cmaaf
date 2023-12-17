@@ -17,6 +17,9 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('room')->nullable();
+            $table->string('area')->default('Facturación')->nullable();
+            $table->string('window')->nullable();
             $table->enum('type', ['user', 'doctor', 'admin', 'super'])->default('user');
             $table->rememberToken();
             $table->timestamps();

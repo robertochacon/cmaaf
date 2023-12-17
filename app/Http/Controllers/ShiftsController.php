@@ -15,6 +15,11 @@ class ShiftsController extends Controller
         return view('shifts.request', compact(['areas']));
     }
 
+    public function areas(Request $request){
+        $identification = $request->identification;
+        return view('shifts.areas', compact(['identification']));
+    }
+
     public function save(Request $request){
 
         $totalToday = Shifts::where('area', $request->area)->whereDate('created_at', Carbon::today())->count();

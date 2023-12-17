@@ -17,7 +17,7 @@ class BroadcastingEvent
     /**
      * Create a new event instance.
      */
-    public function __construct(public string $code)
+    public function __construct(public array $shift)
     {
         //
     }

@@ -19,6 +19,9 @@ class Users extends Seeder
             'name' => 'Administrador',
             'email' => 'admin@admin.com',
             'password' => bcrypt('admin'),
+            'room' => 'Sala 1',
+            'area' => 'Facturacion',
+            'window' => '1',
             'remember_token' => null,
             'type' => 'super',
             'created_at' => date("Y-m-d H:i:s")
@@ -28,6 +31,9 @@ class Users extends Seeder
             'name' => 'Doctor admin',
             'email' => 'doctor@admin.com',
             'password' => bcrypt('admin'),
+            'room' => 'Sala 1',
+            'area' => 'Facturacion',
+            'window' => '1',
             'remember_token' => null,
             'type' => 'admin',
             'created_at' => date("Y-m-d H:i:s")
@@ -37,6 +43,9 @@ class Users extends Seeder
             'name' => 'Doctor',
             'email' => 'doctor@doctor.com',
             'password' => bcrypt('doctor'),
+            'room' => 'Sala 3',
+            'area' => 'Consultorio',
+            'window' => '1',
             'remember_token' => null,
             'type' => 'doctor',
             'created_at' => date("Y-m-d H:i:s")

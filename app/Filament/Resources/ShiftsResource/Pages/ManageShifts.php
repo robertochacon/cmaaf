@@ -41,4 +41,10 @@ class ManageShifts extends ManageRecords
                 ->badge(Shifts::query()->where('status', 'cancel')->count()),
         ];
     }
+
+    public function getDefaultActiveTab(): string | int | null
+    {
+        return 'En espera';
+    }
+
 }

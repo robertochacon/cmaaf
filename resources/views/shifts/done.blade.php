@@ -59,7 +59,7 @@
     </center>
 </div>
 
-{{-- <script>
+<script>
 
     window.focus();
     setTimeout(() => {
@@ -69,4 +69,4 @@
         }, 3000);
     }, 1000);
 
-</script> --}}
+</script>

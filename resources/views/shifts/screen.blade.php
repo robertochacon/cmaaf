@@ -36,6 +36,7 @@
     <div class="col-6 row justify-content-center">
 
         <livewire:broadcasting/>
+
         @livewire('shifts')
 
     </div>
@@ -49,17 +50,13 @@
 <div class="modal fade" id="llamada-turno" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
-        {{-- <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Llamado de turno</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div> --}}
         <div class="modal-body">
           <div class="row justify-content-center">
             <div class="col-12 text-center">
                 <h1><b>Turno</b></h1>
-                <h1>LAB-4</h1>
+                <h1 id="nshift">LAB-4</h1>
                 <h1><b>Posición</b></h1>
-                <h1>4</h1>
+                <h1 id="nposition">4</h1>
             </div>
           </div>
         </div>
@@ -72,9 +69,17 @@
 
 @livewireScripts
 
-
 <script>
-    $(document).ready(function(){
+
+    window.addEventListener('call-shift', event => {
+
+        let code = event.detail[0].shift.code;
+        let position = event.detail[0].shift.position;
+        console.log(position);
+
+        $("#nshift").html(code);
+        $("#nposition").html(position);
+
         setTimeout(() => {
 
             //open modal
@@ -90,5 +95,10 @@
             }, 5000);
 
         }, 1000);
-    });
+
+    })
+
+    // $(document).ready(function(){
+    // });
+
 </script>

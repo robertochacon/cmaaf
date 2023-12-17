@@ -14,12 +14,9 @@ class Broadcasting extends Component
 
         if ($event) {
             Cache::forget($key);
-            $this->emit('broadcasting', $event);
-
-            $this->dispatchBrowserEvent('notify');
-            dd('test');
+            $this->dispatch('broadcasting', $event);
+            $this->dispatch('call-shift', $event);
         }
-
 
         return <<<'HTML'
         <div wire:poll.1s></div>
