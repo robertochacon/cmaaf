@@ -103,6 +103,7 @@ class ShiftsResource extends Resource
                     $room = auth()->user()->room;
 
                     $data = [
+                        'room' => $record->room,
                         'code' => $record->code,
                         'position' => $position,
                         'window' => $room,

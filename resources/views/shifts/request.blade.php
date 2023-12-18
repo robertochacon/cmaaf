@@ -21,92 +21,92 @@
 
         <div class="col-10 row justify-content-center" id="first-form">
 
-            <form action="{{ route('turnos/areas') }}" method="get">
-                @csrf
+            <form action="{{ url('turnos/areas') }}" method="GET">
 
                 <div class="col-12 pb-2 p-5">
                     <h1 class="text-success"><b>Introduzca su cedula</b></h1>
-                    <input type="text" name="identification" class="form-control p-2 text-end size-50" id="cedula" style="font-size: 50px;">
+                    <input type="text" name="identification" class="form-control p-2 text-end size-50" id="cedula" required style="font-size: 50px;">
+                </div>
+
+                <div class="row pt-0 p-5">
+                    <div class="col-9">
+                        <div class="row justify-content-around mt-1">
+                            <div class="col-4" onclick="add(1)" style="cursor:pointer;">
+                                <div class="container p-1 rounded shadow bg-secondary text-center text-white">
+                                    <h1><b>1</b></h1>
+                                </div>
+                            </div>
+                            <div class="col-4" onclick="add(2)" style="cursor:pointer;">
+                                <div class="container p-1 rounded shadow bg-secondary text-center text-white">
+                                    <h1><b>2</b></h1>
+                                </div>
+                            </div>
+                            <div class="col-4" onclick="add(3)" style="cursor:pointer;">
+                                <div class="container p-1 rounded shadow bg-secondary text-center text-white">
+                                    <h1><b>3</b></h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row justify-content-around mt-1">
+                            <div class="col-4" onclick="add(4)" style="cursor:pointer;">
+                                <div class="container p-1 rounded shadow bg-secondary text-center text-white">
+                                    <h1><b>4</b></h1>
+                                </div>
+                            </div>
+                            <div class="col-4" onclick="add(5)" style="cursor:pointer;">
+                                <div class="container p-1 rounded shadow bg-secondary text-center text-white">
+                                    <h1><b>5</b></h1>
+                                </div>
+                            </div>
+                            <div class="col-4" onclick="add(6)" style="cursor:pointer;">
+                                <div class="container p-1 rounded shadow bg-secondary text-center text-white">
+                                    <h1><b>6</b></h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row justify-content-around mt-1">
+                            <div class="col-4" onclick="add(7)" style="cursor:pointer;">
+                                <div class="container p-1 rounded shadow bg-secondary text-center text-white">
+                                    <h1><b>7</b></h1>
+                                </div>
+                            </div>
+                            <div class="col-4" onclick="add(8)" style="cursor:pointer;">
+                                <div class="container p-1 rounded shadow bg-secondary text-center text-white">
+                                    <h1><b>8</b></h1>
+                                </div>
+                            </div>
+                            <div class="col-4" onclick="add(9)" style="cursor:pointer;">
+                                <div class="container p-1 rounded shadow bg-secondary text-center text-white">
+                                    <h1><b>9</b></h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="col-12" onclick="add(0)" style="cursor:pointer;">
+                            <div class="container p-1 mt-1 rounded shadow bg-secondary text-center text-white">
+                                <h1><b>0</b></h1>
+                            </div>
+                        </div>
+                        <div class="col-12" onclick="removeN()" style="cursor:pointer;">
+                            <div class="container p-1 mt-1 rounded shadow bg-danger text-center text-white">
+                                <h1>Borrar</h1>
+                            </div>
+                        </div>
+                        <div class="col-12" style="cursor:pointer;">
+                            <button type="submit" class="container p-1 mt-1 rounded shadow bg-success text-center text-white border-0">
+                                <h1>Siguiente</h1>
+                            </button>
+                        </div>
+                    </div>
                 </div>
 
             </form>
 
-            <div class="row pt-0 p-5">
-                <div class="col-9">
-                    <div class="row justify-content-around mt-1">
-                        <div class="col-4" onclick="add(1)" style="cursor:pointer;">
-                            <div class="container p-1 rounded shadow bg-secondary text-center text-white">
-                                <h1><b>1</b></h1>
-                            </div>
-                        </div>
-                        <div class="col-4" onclick="add(2)" style="cursor:pointer;">
-                            <div class="container p-1 rounded shadow bg-secondary text-center text-white">
-                                <h1><b>2</b></h1>
-                            </div>
-                        </div>
-                        <div class="col-4" onclick="add(3)" style="cursor:pointer;">
-                            <div class="container p-1 rounded shadow bg-secondary text-center text-white">
-                                <h1><b>3</b></h1>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row justify-content-around mt-1">
-                        <div class="col-4" onclick="add(4)" style="cursor:pointer;">
-                            <div class="container p-1 rounded shadow bg-secondary text-center text-white">
-                                <h1><b>4</b></h1>
-                            </div>
-                        </div>
-                        <div class="col-4" onclick="add(5)" style="cursor:pointer;">
-                            <div class="container p-1 rounded shadow bg-secondary text-center text-white">
-                                <h1><b>5</b></h1>
-                            </div>
-                        </div>
-                        <div class="col-4" onclick="add(6)" style="cursor:pointer;">
-                            <div class="container p-1 rounded shadow bg-secondary text-center text-white">
-                                <h1><b>6</b></h1>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row justify-content-around mt-1">
-                        <div class="col-4" onclick="add(7)" style="cursor:pointer;">
-                            <div class="container p-1 rounded shadow bg-secondary text-center text-white">
-                                <h1><b>7</b></h1>
-                            </div>
-                        </div>
-                        <div class="col-4" onclick="add(8)" style="cursor:pointer;">
-                            <div class="container p-1 rounded shadow bg-secondary text-center text-white">
-                                <h1><b>8</b></h1>
-                            </div>
-                        </div>
-                        <div class="col-4" onclick="add(9)" style="cursor:pointer;">
-                            <div class="container p-1 rounded shadow bg-secondary text-center text-white">
-                                <h1><b>9</b></h1>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="col-12" onclick="add(0)" style="cursor:pointer;">
-                        <div class="container p-1 mt-1 rounded shadow bg-secondary text-center text-white">
-                            <h1><b>0</b></h1>
-                        </div>
-                    </div>
-                    <div class="col-12" onclick="removeN()" style="cursor:pointer;">
-                        <div class="container p-1 mt-1 rounded shadow bg-danger text-center text-white">
-                            <h1>Borrar</h1>
-                        </div>
-                    </div>
-                    <div class="col-12" onclick="next()" style="cursor:pointer;">
-                        <div class="container p-1 mt-1 rounded shadow bg-success text-center text-white">
-                            <h1>Siguiente</h1>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </div>
 
     </div>
+
 <script src="{{ asset('js/imask/imask.js') }}"></script>
 <script>
 

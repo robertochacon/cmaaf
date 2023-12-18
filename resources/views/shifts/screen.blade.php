@@ -49,20 +49,20 @@
 
 <div class="modal fade" id="llamada-turno" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
+        <div class="modal-content">
         <div class="modal-body">
-          <div class="row justify-content-center">
+            <div class="row justify-content-center">
             <div class="col-12 text-center">
                 <h1><b>Turno</b></h1>
                 <h1 id="nshift">LAB-4</h1>
                 <h1><b>Posición</b></h1>
                 <h1 id="nposition">4</h1>
             </div>
-          </div>
+            </div>
         </div>
-      </div>
+        </div>
     </div>
-  </div>
+</div>
 
 <script src="{{ asset('js/jquery/jquery-3.7.1.min.js') }}"></script>
 <script src="{{ asset('js/bootstrap/bootstrap.bundle.min.js') }}"></script>
@@ -73,28 +73,30 @@
 
     window.addEventListener('call-shift', event => {
 
+        let room = event.detail[0].shift.room;
         let code = event.detail[0].shift.code;
         let position = event.detail[0].shift.position;
-        console.log(position);
 
         $("#nshift").html(code);
         $("#nposition").html(position);
 
-        setTimeout(() => {
-
-            //open modal
-            $("#llamada-turno").modal('show');
-
-            //play sound
-            const audio = new Audio("{{ asset('song/turno.mp3') }}");
-            audio.play();
-
-            //close modal
+        if (room === {{ $room }}) {
             setTimeout(() => {
-                $("#llamada-turno").modal('hide');
-            }, 5000);
 
-        }, 1000);
+                //open modal
+                $("#llamada-turno").modal('show');
+
+                //play sound
+                const audio = new Audio("{{ asset('song/turno.mp3') }}");
+                audio.play();
+
+                //close modal
+                setTimeout(() => {
+                    $("#llamada-turno").modal('hide');
+                }, 5000);
+
+            }, 1000);
+        }
 
     })
 

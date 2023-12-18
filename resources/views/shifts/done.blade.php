@@ -65,8 +65,8 @@
     setTimeout(() => {
         window.print();
         setTimeout(() => {
-            window.location.hostname = '/request';
-        }, 3000);
+            window.location.hostname = '/turnos';
+        }, 1000);
     }, 1000);
 
 </script>

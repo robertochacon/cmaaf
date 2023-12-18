@@ -19,7 +19,7 @@
 
     <div class="row justify-content-center centro">
 
-        <div class="col-10 row justify-content-center" style="display: none" id="second-form">
+        <div class="col-10 row justify-content-center" id="second-form">
 
             <div class="row justify-content-around p-5">
 
@@ -29,16 +29,16 @@
                             <h1 class="text-success"><b>Hacia donde se dirige?</b></h1>
                         </div>
                         <div class="col-4 p-3 text-end">
-                            <button onclick="back()" type="submit" class="container border-0 rounded shadow bg-secondary text-center text-white">
+                            <a href="{{ url('turnos') }}" type="submit" class="container border-0 rounded shadow bg-secondary text-center text-white" style="text-decoration: none;">
                                 <h1>Atras</h1>
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>
 
                 @foreach ($areas as $area)
                 <div class="col-6 mt-2" style="cursor:pointer;">
-                    <form action="{{ route('request') }}" method="POST">
+                    <form action="{{ url('turnos/solicitado') }}" method="GET">
                     @csrf
                         <button type="submit" class="container border-0 p-3 rounded shadow bg-primary text-center text-white">
                             <h1><b>{{ $area['name'] }}</b></h1>

@@ -11,13 +11,13 @@ use Illuminate\Http\Request;
 class ShiftsController extends Controller
 {
     public function request(){
-        $areas = Areas::all();
-        return view('shifts.request', compact(['areas']));
+        return view('shifts.request');
     }
 
     public function areas(Request $request){
+        $areas = Areas::all();
         $identification = $request->identification;
-        return view('shifts.areas', compact(['identification']));
+        return view('shifts.areas', compact(['identification','areas']));
     }
 
     public function save(Request $request){
@@ -25,6 +25,7 @@ class ShiftsController extends Controller
         $totalToday = Shifts::where('area', $request->area)->whereDate('created_at', Carbon::today())->count();
 
         $shift = Shifts::create($request->all());
+        $shift->identification = $request->identification;
         $shift->code = $request->acronym.'-'.($totalToday+1);
         $shift->save();
 
