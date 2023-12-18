@@ -8,10 +8,17 @@ use Livewire\Component;
 
 class Shifts extends Component
 {
+    public $room;
+
+    public function mount($room)
+    {
+        $this->room = $room;
+    }
+
     public function render()
     {
         return view('livewire.shifts')->with([
-            'shifts' => ModelsShifts::whereDate('created_at', Carbon::today())->orderBy('id','DESC')->limit(5)->get()
+            'shifts' => ModelsShifts::where('room', $this->room)->whereDate('created_at', Carbon::today())->orderBy('id','DESC')->limit(5)->get()
         ]);
     }
 }

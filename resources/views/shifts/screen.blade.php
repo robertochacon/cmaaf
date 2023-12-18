@@ -24,7 +24,7 @@
     <div class="col-12 pb-0 p-4 text-center">
         <div class="row justify-content-between align-items-center">
             <div class="col-6 text-start">
-                <h4 class="text-secondary"><b>Sala {{ $room }}</b></h4>
+                <h4 class="text-secondary"><b>{{ $room }}</b></h4>
                 <h1 class="text-success"><b>Lista de turnos</b></h1>
             </div>
             <div class="col-6 text-end">
@@ -37,7 +37,7 @@
 
         <livewire:broadcasting/>
 
-        @livewire('shifts')
+        @livewire('shifts', ['room' => $room])
 
     </div>
 
@@ -80,7 +80,7 @@
         $("#nshift").html(code);
         $("#nposition").html(position);
 
-        if (room === {{ $room }}) {
+        if (room === '{{ $room }}') {
             setTimeout(() => {
 
                 //open modal

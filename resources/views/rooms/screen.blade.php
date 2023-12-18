@@ -33,7 +33,7 @@
 
         @foreach ($rooms as $room)
             <div class="col-4 p-2">
-                <a href="{{ url('sala/'.$room['id']) }}" type="submit" style="text-decoration: none" class="container border-0 p-3 rounded shadow bg-secondary text-center text-white">
+                <a href="{{ url('sala/'.$room['name']) }}" type="submit" style="text-decoration: none" class="container border-0 p-3 rounded shadow bg-secondary text-center text-white">
                     <h1><b>{{ $room['name'] }}</b></h1>
                 </a>
             </div>

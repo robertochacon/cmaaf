@@ -103,10 +103,9 @@ class ShiftsResource extends Resource
                     $room = auth()->user()->room;
 
                     $data = [
-                        'room' => $record->room,
+                        'room' => $room,
                         'code' => $record->code,
                         'position' => $position,
-                        'window' => $room,
                     ];
 
                     event(new BroadcastingEvent($data));
@@ -114,6 +113,7 @@ class ShiftsResource extends Resource
                     $shift = Shifts::find($record->id);
 
                     if ($shift->status==='wait') {
+                        $shift->room = $room;
                         $shift->window = $position;
                         $shift->status = 'call';
                         $shift->save();
