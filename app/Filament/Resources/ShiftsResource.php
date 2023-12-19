@@ -15,6 +15,7 @@ use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Actions\Action;
@@ -60,6 +61,15 @@ class ShiftsResource extends Resource
                 }),
                 TextInput::make('window')->label('Posición')->numeric(),
                 TextInput::make('code'),
+                Select::make('status')
+                ->label('Estado')
+                ->options([
+                    'call' => 'LLamando',
+                    'wait' => 'Es espera',
+                    'wait_doctor' => 'Es espera de un doctor',
+                    'done' => 'Completado',
+                    'cancel' => 'Cancelado',
+                ])
             ]);
     }
 
@@ -75,10 +85,9 @@ class ShiftsResource extends Resource
                 ->default('N/A')
                 ->label('Cédula')
                 ->searchable(),
-                SelectColumn::make('service')
-                ->label('Servicio')
-                ->options(Services::all()->pluck('name','name'))
-                ->searchable(),
+                TextColumn::make('service')
+                ->default('N/A')
+                ->label('Servicio'),
                 TextColumn::make('room')
                 ->default('N/A')
                 ->label('Sala'),
@@ -109,6 +118,11 @@ class ShiftsResource extends Resource
                     $position = auth()->user()->window;
                     $room = auth()->user()->room;
 
+                    Notification::make()
+                    ->title('El turno '.$record->code.' se esta solicitando.')
+                    ->info()
+                    ->send();
+
                     $data = [
                         'room' => $room,
                         'code' => $record->code,
@@ -119,12 +133,12 @@ class ShiftsResource extends Resource
 
                     $shift = Shifts::find($record->id);
 
-                    if ($shift->status==='wait') {
-                        $shift->room = $room;
-                        $shift->window = $position;
-                        $shift->status = 'call';
-                        $shift->save();
-                    }
+                    $shift->room = $room;
+                    $shift->window = $position;
+                    $shift->status = 'call';
+                    $shift->save();
+
+                    redirect()->intended("admin/shifts?activeTab=LLamados");
 
                 })
                 ->icon('heroicon-m-speaker-wave')
@@ -133,6 +147,11 @@ class ShiftsResource extends Resource
                 ->labeledFrom('lg'),
                 Action::make('Atendido') //from admin
                 ->action(function (Shifts $record, array $data): void {
+
+                    Notification::make()
+                    ->title('El turno '.$record->code.' fue atendido.')
+                    ->success()
+                    ->send();
 
                     $shift = Shifts::find($record->id);
                     $shift->status = 'wait_doctor';
@@ -144,12 +163,29 @@ class ShiftsResource extends Resource
                 ->button()
                 ->labeledFrom('lg')
                 ->hidden(!auth()->user()->isAdmin()),
+                Action::make('Atendido') //from doctor
+                ->action(function (Shifts $record, array $data): void {
+
+                    Notification::make()
+                    ->title('El turno '.$record->code.' fue atendido.')
+                    ->success()
+                    ->send();
+
+                    $shift = Shifts::find($record->id);
+                    $shift->status = 'done';
+                    $shift->save();
+
+                })
+                ->icon('heroicon-m-check-circle')
+                ->color('warning')
+                ->button()
+                ->labeledFrom('lg')
+                ->hidden(!auth()->user()->isDoctor()),
                 Tables\Actions\EditAction::make()
                 ->button()
                 ->hidden(auth()->user()->isDoctor()),
                 Tables\Actions\DeleteAction::make()
-                ->button()
-                ->hidden(auth()->user()->isDoctor()),
+                ->button(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -168,7 +204,7 @@ class ShiftsResource extends Resource
 
     public static function getNavigationBadge(): ?string
     {
-        return static::getModel()::where('status', ['call','wait'])->count();
+        return static::getModel()::whereIn('status', ['call','wait'])->count();
     }
 
     public static function getEloquentQuery(): Builder
@@ -176,7 +212,7 @@ class ShiftsResource extends Resource
         if (auth()->user()->isSuper()) {
             return parent::getEloquentQuery();
         }else if (auth()->user()->isAdmin()) {
-            return parent::getEloquentQuery()->where('service', null)->where('status', 'wait_doctor');
+            return parent::getEloquentQuery()->where('service', null);
         }else if (auth()->user()->isDoctor()) {
 
             $services = auth()->user()->services;

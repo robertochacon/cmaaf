@@ -48,15 +48,4 @@ class ManageShifts extends ManageRecords
         return 'En espera';
     }
 
-    protected function afterSave(): void
-    {
-
-        dd($this->getRecord()->code);
-
-        Shifts::where('code', $this->getRecord()->code)->update([
-            'status' => 'wait',
-        ]);
-
-    }
-
 }
