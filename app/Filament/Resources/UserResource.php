@@ -4,8 +4,10 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
+use App\Models\Services;
 use App\Models\User;
 use Filament\Forms;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
@@ -35,6 +37,11 @@ class UserResource extends Resource
                 TextInput::make('name')->required(),
                 TextInput::make('email')->required()->email(),
                 TextInput::make('password')->required()->password()->hiddenOn('edit'),
+                Select::make('services')
+                ->multiple()
+                ->label('Servicios/Especialidades')
+                ->options(Services::all()->pluck('name', 'name'))
+                ->searchable(),
                 // Toggle::make('status')
             ]);
     }
@@ -47,6 +54,7 @@ class UserResource extends Resource
                 ->searchable(),
                 TextColumn::make('email')->label('Email')
                 ->searchable(),
+                TextColumn::make('services')->label('Servicios')->default('N/A')->limit(15),
                 TextColumn::make('created_at')->since()->label('Creado'),
                 // ToggleColumn::make('status')->label('Estado')
             ])
@@ -79,7 +87,7 @@ class UserResource extends Resource
 
     public static function shouldRegisterNavigation(): bool
     {
-        return auth()->user()->isSuper() || auth()->user()->isAdmin();
+        return auth()->user()->isSuper();
     }
 
 }

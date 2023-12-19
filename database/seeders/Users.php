@@ -16,9 +16,9 @@ class Users extends Seeder
     public function run()
     {
         ModelsUser::create([
-            'name' => 'Administrador',
-            'email' => 'admin@admin.com',
-            'password' => bcrypt('admin'),
+            'name' => 'Super Administrador',
+            'email' => 'super@admin.com',
+            'password' => bcrypt('super'),
             'room' => 'Sala 1',
             'area' => 'Facturacion',
             'window' => '1',
@@ -28,8 +28,8 @@ class Users extends Seeder
         ]);
 
         ModelsUser::create([
-            'name' => 'Doctor admin',
-            'email' => 'doctor@admin.com',
+            'name' => 'Administrador',
+            'email' => 'admin@admin.com',
             'password' => bcrypt('admin'),
             'room' => 'Sala 1',
             'area' => 'Facturacion',
@@ -46,6 +46,7 @@ class Users extends Seeder
             'room' => 'Sala 3',
             'area' => 'Consultorio',
             'window' => '1',
+            'services' => ['Sonografía','Mamografía','Radiología'],
             'remember_token' => null,
             'type' => 'doctor',
             'created_at' => date("Y-m-d H:i:s")

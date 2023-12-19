@@ -25,6 +25,7 @@ class User extends Authenticatable
         'type',
         'room',
         'area',
+        'services',
         'window'
     ];
 
@@ -46,6 +47,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'services' => 'array',
     ];
 
     public function canAccessPanel(Panel $panel): bool

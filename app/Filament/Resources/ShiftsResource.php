@@ -18,6 +18,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Actions\Action;
+use Filament\Tables\Columns\SelectColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -74,21 +75,27 @@ class ShiftsResource extends Resource
                 ->default('N/A')
                 ->label('Cédula')
                 ->searchable(),
-                TextColumn::make('service')
-                ->default('N/A')
-                ->label('Servicio'),
+                SelectColumn::make('service')
+                ->label('Servicio')
+                ->options(Services::all()->pluck('name','name'))
+                ->searchable(),
                 TextColumn::make('room')
                 ->default('N/A')
                 ->label('Sala'),
                 TextColumn::make('area')
                 ->default('N/A')
-                ->label('Area'),
+                ->label('Area')
+                ->toggleable(isToggledHiddenByDefault: true)
+                ->hidden(auth()->user()->isDoctor()),
                 TextColumn::make('window')
                 ->default('N/A')
-                ->label('Posición'),
+                ->label('Posición')
+                ->toggleable(isToggledHiddenByDefault: true)
+                ->hidden(auth()->user()->isDoctor()),
                 TextColumn::make('created_at')
                 ->since()
-                ->label('Creado'),
+                ->label('Creado')
+                ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->poll('5s')
             ->deferLoading()
@@ -119,9 +126,30 @@ class ShiftsResource extends Resource
                         $shift->save();
                     }
 
-                }),
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                })
+                ->icon('heroicon-m-speaker-wave')
+                ->color('info')
+                ->button()
+                ->labeledFrom('lg'),
+                Action::make('Atendido')
+                ->action(function (Shifts $record, array $data): void {
+
+                    $shift = Shifts::find($record->id);
+                    $shift->status = 'wait';
+                    $shift->save();
+
+                })
+                ->icon('heroicon-m-check-circle')
+                ->color('success')
+                ->button()
+                ->labeledFrom('lg')
+                ->hidden(!auth()->user()->isAdmin()),
+                Tables\Actions\EditAction::make()
+                ->button()
+                ->hidden(auth()->user()->isDoctor()),
+                Tables\Actions\DeleteAction::make()
+                ->button()
+                ->hidden(auth()->user()->isDoctor()),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -143,9 +171,24 @@ class ShiftsResource extends Resource
         return static::getModel()::where('status', ['call','wait'])->count();
     }
 
-    // public static function getEloquentQuery(): Builder
-    // {
-    //     return parent::getEloquentQuery()->where('area', auth()->user()->area);
-    // }
+    public static function getEloquentQuery(): Builder
+    {
+        if (auth()->user()->isSuper()) {
+            return parent::getEloquentQuery();
+        }else if (auth()->user()->isAdmin()) {
+            return parent::getEloquentQuery()->where('service', null)->where('status', 'wait');
+        }else if (auth()->user()->isDoctor()) {
+
+            $services = auth()->user()->services;
+            $result = parent::getEloquentQuery();
+
+            foreach ($services as $key => $value) {
+                $result->orWhere('service', $value);
+            }
+
+            return $result;
+
+        }
+    }
 
 }

@@ -18,7 +18,7 @@ class Shifts extends Component
     public function render()
     {
         return view('livewire.shifts')->with([
-            'shifts' => ModelsShifts::where('room', $this->room)->whereDate('created_at', Carbon::today())->orderBy('id','DESC')->limit(5)->get()
+            'shifts' => ModelsShifts::where('status', 'call')->where('room', $this->room)->whereDate('created_at', Carbon::today())->orderBy('id','DESC')->limit(5)->get()
         ]);
     }
 }

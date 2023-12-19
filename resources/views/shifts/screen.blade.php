@@ -42,7 +42,7 @@
     </div>
 
     <div class="col-6 p-3 row justify-content-center">
-        <iframe width="560" style="height:60vh" src="https://www.youtube.com/embed/o6yWaGgp6Jc?si=wvJM6Aknl1u6GKCQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        {{-- <iframe width="560" style="height:60vh" src="https://www.youtube.com/embed/o6yWaGgp6Jc?si=wvJM6Aknl1u6GKCQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> --}}
     </div>
 
 </div>

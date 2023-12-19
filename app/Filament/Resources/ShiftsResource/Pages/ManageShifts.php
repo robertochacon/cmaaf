@@ -18,7 +18,8 @@ class ManageShifts extends ManageRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make()->label('Crear turno'),
+            Actions\CreateAction::make()->label('Crear turno')
+            ->hidden(auth()->user()->isDoctor()),
         ];
     }
 
@@ -45,6 +46,17 @@ class ManageShifts extends ManageRecords
     public function getDefaultActiveTab(): string | int | null
     {
         return 'En espera';
+    }
+
+    protected function afterSave(): void
+    {
+
+        dd($this->getRecord()->code);
+
+        Shifts::where('code', $this->getRecord()->code)->update([
+            'status' => 'wait',
+        ]);
+
     }
 
 }

@@ -12,6 +12,7 @@ use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\SelectColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
@@ -39,7 +40,8 @@ class ServicesResource extends Resource
                     'image' => 'Imagen',
                     'laboratory' => 'Laboratorio',
                     'consultation' => 'Consultas',
-                ]),
+                ])
+                ->searchable(),
                 Toggle::make('status')
             ]);
     }
@@ -50,6 +52,12 @@ class ServicesResource extends Resource
             ->columns([
                 TextColumn::make('name')->label('Nombre')
                 ->searchable(),
+                SelectColumn::make('type')->label('Tipo')
+                ->options([
+                    'image' => 'Imagen',
+                    'laboratory' => 'Laboratorio',
+                    'consultation' => 'Consultas',
+                ]),
                 TextColumn::make('created_at')->since()->label('Creado'),
                 ToggleColumn::make('status')->label('Estado')
             ])
@@ -79,4 +87,10 @@ class ServicesResource extends Resource
     {
         return static::getModel()::count();
     }
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return auth()->user()->isSuper();
+    }
+
 }

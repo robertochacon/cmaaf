@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('room')->nullable();
             $table->string('area')->default('Facturación')->nullable();
             $table->string('window')->nullable();
+            $table->json('services')->nullable();
             $table->enum('type', ['user', 'doctor', 'admin', 'super'])->default('user');
             $table->rememberToken();
             $table->timestamps();

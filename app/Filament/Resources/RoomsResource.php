@@ -72,4 +72,10 @@ class RoomsResource extends Resource
     {
         return static::getModel()::count();
     }
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return auth()->user()->isSuper();
+    }
+
 }
