@@ -131,16 +131,16 @@ class ShiftsResource extends Resource
                 ->color('info')
                 ->button()
                 ->labeledFrom('lg'),
-                Action::make('Atendido')
+                Action::make('Atendido') //from admin
                 ->action(function (Shifts $record, array $data): void {
 
                     $shift = Shifts::find($record->id);
-                    $shift->status = 'wait';
+                    $shift->status = 'wait_doctor';
                     $shift->save();
 
                 })
                 ->icon('heroicon-m-check-circle')
-                ->color('success')
+                ->color('warning')
                 ->button()
                 ->labeledFrom('lg')
                 ->hidden(!auth()->user()->isAdmin()),
@@ -176,11 +176,11 @@ class ShiftsResource extends Resource
         if (auth()->user()->isSuper()) {
             return parent::getEloquentQuery();
         }else if (auth()->user()->isAdmin()) {
-            return parent::getEloquentQuery()->where('service', null)->where('status', 'wait');
+            return parent::getEloquentQuery()->where('service', null)->where('status', 'wait_doctor');
         }else if (auth()->user()->isDoctor()) {
 
             $services = auth()->user()->services;
-            $result = parent::getEloquentQuery();
+            $result = parent::getEloquentQuery()->where('status', 'wait_doctor')->orWhere('status', 'call');
 
             foreach ($services as $key => $value) {
                 $result->orWhere('service', $value);
