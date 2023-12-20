@@ -14,5 +14,15 @@ class Shifts extends Model
     protected $fillable = [
         'user_id','identification','patient_name','code','service','note','room','area','window','status',
     ];
+    protected $appends = ['status_spanish'];
+
+    public function getStatusSpanishAttribute(){
+        return match (true) {
+            $this->status == 'call' => 'Llamando',
+            $this->status == 'cancel' => 'Cancelado',
+            $this->status == 'wait_doctor' => 'En espera',
+            default => 'En espera',
+        };
+    }
 
 }

@@ -3,65 +3,103 @@
 <style>
     .centro{
         height: 90vh;
-        display: flex;
+        /* display: flex;
         justify-items: center;
-        align-items: center
+        align-items: center; */
+        background:rgba(255, 255, 255, 0.9);
+    }
+    .fondo{
+        background-image: url('{{ asset('images/bg/fondo-screen.jpg') }}');
+        background-repeat: no-repeat;
+        background-size: cover;
     }
 </style>
 
-<div class="row justify-content-center centro p-0 m-0">
+<div class="p-5 fondo">
 
-    <div class="col-12">
-        <nav class="navbar navbar-white bg-white">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">
-                <img src="{{ asset('images/logo.png') }}" alt="" width="200"  class="d-inline-block align-text-top">
-                </a>
+    <div class="row justify-content-center centro p-0 m-0 shadow rounded">
+
+        <div class="col-12">
+            <nav class="navbar navbar-white">
+                <div class="container-fluid">
+                    <a class="navbar-brand bg-white rounded" href="/salas">
+                    <img src="{{ asset('images/logo.png') }}" alt="" width="200"  class="d-inline-block align-text-top">
+                    </a>
+                </div>
+            </nav>
+            <div class="col-12 pb-0 p-4 text-center">
+                <div class="row justify-content-between align-items-center">
+                    <div class="col-6 text-start">
+                        <h2 class="text-secondary"><b>{{ $room }}</b></h2>
+                        <h1 class="text-success"><b>Lista de turnos</b></h1>
+                    </div>
+                    <div class="col-6 text-end">
+                        @livewire('timer')
+                    </div>
+                </div>
             </div>
-        </nav>
+        </div>
+
+        <div class="col-6 row justify-content-center">
+
+            <livewire:broadcasting/>
+
+            @livewire('shifts', ['room' => $room])
+
+        </div>
+
+        <div class="col-6 p-3 row justify-content-center">
+
+            <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner rounded shadow">
+
+                    @if(isset($images))
+
+                        <div class="carousel-item active">
+                            <img class="d-block w-100" src="{{ URL::to('/storage/'.$images[0]) }}" alt="Imagen">
+                        </div>
+
+                        @foreach($images as $image)
+                            @if($image != $images[0])
+                            <div class="carousel-item">
+                                <img class="d-block w-100" src="{{ URL::to('/storage/'.$image) }}" alt="Imagen">
+                            </div>
+                            @endIf
+                        @endforeach
+
+                    @else
+
+                            <center>
+                                <h1 class="text-dark" style="font-size: 100px"><b>Bienvenidos</b></h1>
+                                <h1 class="text-secondary">Favor estar pendiente a su turno</h1>
+                            </center>
+
+                    @endIf
+
+                </div>
+              </div>
+
+        </div>
+
     </div>
 
-    <div class="col-12 pb-0 p-4 text-center">
-        <div class="row justify-content-between align-items-center">
-            <div class="col-6 text-start">
-                <h4 class="text-secondary"><b>{{ $room }}</b></h4>
-                <h1 class="text-success"><b>Lista de turnos</b></h1>
+    <div class="modal fade" id="llamada-turno" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+            <div class="modal-body">
+                <div class="row justify-content-center">
+                <div class="col-12 text-center">
+                    <h1><b>Turno</b></h1>
+                    <h1 id="nshift">LAB-4</h1>
+                    <h1><b>Posición</b></h1>
+                    <h1 id="nposition">4</h1>
+                </div>
+                </div>
             </div>
-            <div class="col-6 text-end">
-                @livewire('timer')
             </div>
         </div>
     </div>
 
-    <div class="col-6 row justify-content-center">
-
-        <livewire:broadcasting/>
-
-        @livewire('shifts', ['room' => $room])
-
-    </div>
-
-    <div class="col-6 p-3 row justify-content-center">
-        {{-- <iframe width="560" style="height:60vh" src="https://www.youtube.com/embed/o6yWaGgp6Jc?si=wvJM6Aknl1u6GKCQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> --}}
-    </div>
-
-</div>
-
-<div class="modal fade" id="llamada-turno" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-        <div class="modal-body">
-            <div class="row justify-content-center">
-            <div class="col-12 text-center">
-                <h1><b>Turno</b></h1>
-                <h1 id="nshift">LAB-4</h1>
-                <h1><b>Posición</b></h1>
-                <h1 id="nposition">4</h1>
-            </div>
-            </div>
-        </div>
-        </div>
-    </div>
 </div>
 
 <script src="{{ asset('js/jquery/jquery-3.7.1.min.js') }}"></script>
@@ -71,8 +109,13 @@
 
 <script>
 
+    $(document).ready(function(){
+        $('.carousel').carousel()
+    });
+
     window.addEventListener('call-shift', event => {
 
+        let patient_name = event.detail[0].shift.patient_name;
         let room = event.detail[0].shift.room;
         let code = event.detail[0].shift.code;
         let position = event.detail[0].shift.position;
@@ -86,9 +129,18 @@
                 //open modal
                 $("#llamada-turno").modal('show');
 
-                //play sound
-                const audio = new Audio("{{ asset('song/turno.mp3') }}");
-                audio.play();
+                if (patient_name===null) {
+
+                    //play sound
+                    const audio = new Audio("{{ asset('song/turno.mp3') }}");
+                    audio.play();
+
+                }else{
+
+                    //call with voice
+                    voicePatient(patient_name, position);
+
+                }
 
                 //close modal
                 setTimeout(() => {
@@ -100,7 +152,21 @@
 
     })
 
-    // $(document).ready(function(){
-    // });
+    function voicePatient(name, position){
+
+        let synth = window.speechSynthesis
+        let utterThis = new SpeechSynthesisUtterance(name)
+        utterThis.lang = 'en-US';
+        // utterThis.lang = 'es-ES';
+        synth.speak(utterThis)
+
+        setTimeout(()=>{
+        let utterThis = new SpeechSynthesisUtterance('Favor pasar a la posicion '+position);
+        utterThis.lang = 'en-US';
+        // utterThis.lang = 'es-ES';
+        synth.speak(utterThis);
+        },1000);
+
+    }
 
 </script>

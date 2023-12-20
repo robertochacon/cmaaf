@@ -6,11 +6,13 @@ use App\Filament\Resources\RoomsResource\Pages;
 use App\Filament\Resources\RoomsResource\RelationManagers;
 use App\Models\Rooms;
 use Filament\Forms;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
@@ -33,6 +35,14 @@ class RoomsResource extends Resource
         return $form
             ->schema([
                 TextInput::make('name')->required(),
+                FileUpload::make('images')
+                ->multiple()
+                ->reorderable()
+                ->imageEditor()
+                ->imageResizeMode('cover')
+                ->imageResizeTargetWidth('1420')
+                ->imageResizeTargetHeight('780')
+                ->previewable(),
                 Toggle::make('status')
             ]);
     }
@@ -41,9 +51,16 @@ class RoomsResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name')->label('Nombre')
+                TextColumn::make('name')
+                ->label('Nombre')
                 ->searchable(),
-                TextColumn::make('created_at')->since()->label('Creado'),
+                ImageColumn::make('images')
+                ->label('Imagenes')
+                ->defaultImageUrl(url('/images/bg/horario.jpg'))
+                ->circular()
+                ->stacked(),
+                TextColumn::make('created_at')->since()
+                ->label('Creado'),
                 ToggleColumn::make('status')->label('Estado')
             ])
             ->filters([

@@ -45,6 +45,11 @@
                 <h2>
                     Favor tomar su ticket!
                 </h2>
+                <div class="col-0">
+                    <a href="{{ url('turnos') }}" type="submit" class="container border-0 rounded shadow bg-secondary text-center text-white" style="text-decoration: none;">
+                        <h1>Atras</h1>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -52,10 +57,10 @@
 
 <div class="row justify-content-center centro" id="print">
     <center>
-        <h1>TICKET<br><b>{{ $shift['code'] }}</b></h1>
-        <br>
+        <h1>Turno<br><b>{{ $shift['code'] }}</b></h1>
+        {{-- <br>
         <p>Fecha: {{ $date['date'] }}</p>
-        <p>Hora: {{ $date['hour'] }}</p>
+        <p>Hora: {{ $date['hour'] }}</p> --}}
     </center>
 </div>
 
@@ -65,7 +70,7 @@
     setTimeout(() => {
         window.print();
         setTimeout(() => {
-            window.location.hostname = '/turnos';
+            window.location.href = '/turnos';
         }, 1000);
     }, 1000);
 

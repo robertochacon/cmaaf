@@ -23,29 +23,29 @@ class ManageShifts extends ManageRecords
         ];
     }
 
-    public function getTabs(): array
-    {
-        return [
-            'Todos' => Tab::make()
-                ->badge(Shifts::query()->count()),
-            'LLamados' => Tab::make()
-                ->modifyQueryUsing(fn (Builder $query) => $query->where('status', 'call'))
-                ->badge(Shifts::query()->where('status', 'call')->count()),
-            'En espera' => Tab::make()
-                ->modifyQueryUsing(fn (Builder $query) => $query->where('status', 'wait'))
-                ->badge(Shifts::query()->where('status', 'wait')->count()),
-            'Completados' => Tab::make()
-                ->modifyQueryUsing(fn (Builder $query) => $query->where('status', 'done'))
-                ->badge(Shifts::query()->where('status', 'done')->count()),
-            'Cancelados' => Tab::make()
-                ->modifyQueryUsing(fn (Builder $query) => $query->where('status', 'cancel'))
-                ->badge(Shifts::query()->where('status', 'cancel')->count()),
-        ];
-    }
+    // public function getTabs(): array
+    // {
+    //     return [
+    //         'Todos' => Tab::make()
+    //             ->badge(Shifts::query()->count()),
+    //         'LLamados' => Tab::make()
+    //             ->modifyQueryUsing(fn (Builder $query) => $query->where('status', 'call'))
+    //             ->badge(Shifts::query()->where('status', 'call')->count()),
+    //         'En espera' => Tab::make()
+    //             ->modifyQueryUsing(fn (Builder $query) => $query->where('status', 'wait'))
+    //             ->badge(Shifts::query()->where('status', 'wait')->count()),
+    //         'Completados' => Tab::make()
+    //             ->modifyQueryUsing(fn (Builder $query) => $query->where('status', 'done'))
+    //             ->badge(Shifts::query()->where('status', 'done')->count()),
+    //         'Cancelados' => Tab::make()
+    //             ->modifyQueryUsing(fn (Builder $query) => $query->where('status', 'cancel'))
+    //             ->badge(Shifts::query()->where('status', 'cancel')->count()),
+    //     ];
+    // }
 
-    public function getDefaultActiveTab(): string | int | null
-    {
-        return 'En espera';
-    }
+    // public function getDefaultActiveTab(): string | int | null
+    // {
+    //     return 'En espera';
+    // }
 
 }

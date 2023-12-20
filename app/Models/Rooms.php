@@ -13,8 +13,12 @@ class Rooms extends Model
 
     protected $fillable = [
         'name',
-        'url_video',
-        'video',
+        'images',
         'status',
     ];
+
+    protected $casts = [
+        'images' => 'array',
+    ];
+
 }

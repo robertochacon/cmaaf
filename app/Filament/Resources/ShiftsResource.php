@@ -85,6 +85,10 @@ class ShiftsResource extends Resource
                 ->default('N/A')
                 ->label('Cédula')
                 ->searchable(),
+                TextColumn::make('patient_name')
+                ->default('N/A')
+                ->label('Nombre')
+                ->searchable(),
                 TextColumn::make('service')
                 ->default('N/A')
                 ->label('Servicio'),
@@ -105,8 +109,16 @@ class ShiftsResource extends Resource
                 ->since()
                 ->label('Creado')
                 ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('status_spanish')
+                ->badge()
+                ->label('Estado')
+                ->color(fn (string $state): string => match ($state) {
+                    'En espera' => 'success',
+                    'Llamando' => 'info',
+                    'Cancelado' => 'danger',
+                }),
             ])
-            ->poll('5s')
+            ->poll('1s')
             ->deferLoading()
             ->filters([
                 //
@@ -124,6 +136,7 @@ class ShiftsResource extends Resource
                     ->send();
 
                     $data = [
+                        'patient_name' => $record->patient_name,
                         'room' => $room,
                         'code' => $record->code,
                         'position' => $position,
@@ -137,8 +150,6 @@ class ShiftsResource extends Resource
                     $shift->window = $position;
                     $shift->status = 'call';
                     $shift->save();
-
-                    redirect()->intended("admin/shifts?activeTab=LLamados");
 
                 })
                 ->icon('heroicon-m-speaker-wave')
@@ -162,7 +173,7 @@ class ShiftsResource extends Resource
                 ->color('warning')
                 ->button()
                 ->labeledFrom('lg')
-                ->hidden(!auth()->user()->isAdmin()),
+                ->hidden(auth()->user()->isDoctor()),
                 Action::make('Atendido') //from doctor
                 ->action(function (Shifts $record, array $data): void {
 
@@ -185,6 +196,7 @@ class ShiftsResource extends Resource
                 ->button()
                 ->hidden(auth()->user()->isDoctor()),
                 Tables\Actions\DeleteAction::make()
+                ->requiresConfirmation(false)
                 ->button(),
             ])
             ->bulkActions([
@@ -212,11 +224,11 @@ class ShiftsResource extends Resource
         if (auth()->user()->isSuper()) {
             return parent::getEloquentQuery();
         }else if (auth()->user()->isAdmin()) {
-            return parent::getEloquentQuery()->where('service', null);
+            return parent::getEloquentQuery()->whereDate('created_at', Carbon::today())->where('service', null);
         }else if (auth()->user()->isDoctor()) {
 
             $services = auth()->user()->services;
-            $result = parent::getEloquentQuery()->where('status', 'wait_doctor')->orWhere('status', 'call');
+            $result = parent::getEloquentQuery()->whereDate('created_at', Carbon::today())->where('status', 'wait_doctor')->orWhere('status', 'call');
 
             foreach ($services as $key => $value) {
                 $result->orWhere('service', $value);

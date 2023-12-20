@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Areas;
 use App\Models\Rooms;
 use App\Models\Shifts;
+use App\Services\Jce;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ShiftsController extends Controller
 {
@@ -24,8 +26,17 @@ class ShiftsController extends Controller
 
         $totalToday = Shifts::where('area', $request->area)->whereDate('created_at', Carbon::today())->count();
 
+        $jce = (new Jce())->getPerson(Str::remove('-', $request->identification));
+
+        $name = null;
+
+        if (isset($jce['nombre'])) {
+            $name = $jce['nombre'].' '.$jce['apellidos'];
+        }
+
         $shift = Shifts::create($request->all());
         $shift->identification = $request->identification;
+        $shift->patient_name = $name ?? null;
         $shift->code = $request->acronym.'-'.($totalToday+1);
         $shift->save();
 
@@ -41,7 +52,8 @@ class ShiftsController extends Controller
     }
 
     public function screen($room){
+        $images = Rooms::where('name',$room)->first()['images'];
         $shifts = Shifts::where('room', $room)->whereDate('created_at', Carbon::today())->orderBy('id','DESC')->limit(5)->get();
-        return view('shifts.screen', compact(['shifts','room']));
+        return view('shifts.screen', compact(['shifts','room','images']));
     }
 }

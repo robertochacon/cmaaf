@@ -45,7 +45,7 @@
                         </button>
                         <input type="hidden" name="area" value="{{ $area['name'] }}">
                         <input type="hidden" name="acronym" value="{{ $area['acronym'] }}">
-                        <input type="hidden" id="cedulaResult" name="identification">
+                        <input type="hidden" id="cedulaResult" name="identification" value="{{ $identification }}">
                     </form>
                 </div>
                 @endforeach
