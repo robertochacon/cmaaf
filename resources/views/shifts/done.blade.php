@@ -45,14 +45,13 @@
                 <h2>
                     Favor tomar su ticket!
                 </h2>
-                <div class="col-0">
-                    <a href="{{ url('turnos') }}" type="submit" class="container border-0 rounded shadow bg-secondary text-center text-white" style="text-decoration: none;">
-                        <h1>Atras</h1>
-                    </a>
-                </div>
+                <a href="{{ url('turnos') }}" type="submit" class="btn btn-secondary border-0 rounded shadow text-center text-white" style="text-decoration: none;">
+                    <h1>Atras</h1>
+                </a>
             </div>
         </div>
     </div>
+
 </div>
 
 <div class="row justify-content-center centro" id="print">

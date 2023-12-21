@@ -113,8 +113,8 @@ class ShiftsResource extends Resource
                 ->badge()
                 ->label('Estado')
                 ->color(fn (string $state): string => match ($state) {
-                    'En espera' => 'gray',
-                    'Sin atender' => 'gray',
+                    'En espera' => 'success',
+                    'Sin atender' => 'success',
                     'Llamando' => 'info',
                     'Cancelado' => 'danger',
                 }),
