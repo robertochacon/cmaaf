@@ -21,7 +21,7 @@ class Shifts extends Model
             $this->status == 'call' => 'Llamando',
             $this->status == 'cancel' => 'Cancelado',
             $this->status == 'wait_doctor' => 'En espera',
-            default => 'En espera',
+            default => 'Sin atender',
         };
     }
 

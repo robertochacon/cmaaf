@@ -81,14 +81,14 @@ class ShiftsResource extends Resource
                 ->default('N/A')
                 ->label('Codigo')
                 ->searchable(),
-                TextColumn::make('identification')
-                ->default('N/A')
-                ->label('Cédula')
-                ->searchable(),
-                TextColumn::make('patient_name')
-                ->default('N/A')
-                ->label('Nombre')
-                ->searchable(),
+                // TextColumn::make('identification')
+                // ->default('N/A')
+                // ->label('Cédula')
+                // ->searchable(),
+                // TextColumn::make('patient_name')
+                // ->default('N/A')
+                // ->label('Nombre')
+                // ->searchable(),
                 TextColumn::make('service')
                 ->default('N/A')
                 ->label('Servicio'),
@@ -113,7 +113,8 @@ class ShiftsResource extends Resource
                 ->badge()
                 ->label('Estado')
                 ->color(fn (string $state): string => match ($state) {
-                    'En espera' => 'success',
+                    'En espera' => 'gray',
+                    'Sin atender' => 'gray',
                     'Llamando' => 'info',
                     'Cancelado' => 'danger',
                 }),
@@ -127,13 +128,13 @@ class ShiftsResource extends Resource
                 Action::make('Llamar')
                 ->action(function (Shifts $record, array $data): void {
 
-                    $position = auth()->user()->window;
-                    $room = auth()->user()->room;
-
                     Notification::make()
                     ->title('El turno '.$record->code.' se esta solicitando.')
                     ->info()
                     ->send();
+
+                    $position = auth()->user()->window;
+                    $room = auth()->user()->room;
 
                     $data = [
                         'patient_name' => $record->patient_name,
@@ -145,7 +146,6 @@ class ShiftsResource extends Resource
                     event(new BroadcastingEvent($data));
 
                     $shift = Shifts::find($record->id);
-
                     $shift->room = $room;
                     $shift->window = $position;
                     $shift->status = 'call';
@@ -156,7 +156,7 @@ class ShiftsResource extends Resource
                 ->color('info')
                 ->button()
                 ->labeledFrom('lg'),
-                Action::make('Atendido') //from admin
+                Action::make('Atendido') //from admin or super
                 ->action(function (Shifts $record, array $data): void {
 
                     Notification::make()
@@ -174,7 +174,7 @@ class ShiftsResource extends Resource
                 ->button()
                 ->labeledFrom('lg')
                 ->hidden(auth()->user()->isDoctor()),
-                Action::make('Atendido') //from doctor
+                Action::make('Completado') //from doctor
                 ->action(function (Shifts $record, array $data): void {
 
                     Notification::make()

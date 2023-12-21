@@ -22,6 +22,6 @@ class BroadcastingListener
      */
     public function handle(BroadcastingEvent $event): void
     {
-        Cache::put('broadcasting', $event, now()->addMinutes(5));
+        Cache::put('broadcasting', $event, now()->addMinutes(1));
     }
 }

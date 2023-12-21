@@ -129,18 +129,18 @@
                 //open modal
                 $("#llamada-turno").modal('show');
 
-                if (patient_name===null) {
+                //play sound
+                const audio = new Audio("{{ asset('song/turno.mp3') }}");
+                audio.play();
 
-                    //play sound
-                    const audio = new Audio("{{ asset('song/turno.mp3') }}");
-                    audio.play();
-
-                }else{
-
-                    //call with voice
-                    voicePatient(patient_name, position);
-
-                }
+                // if (patient_name===null) {
+                //     //play sound
+                //     const audio = new Audio("{{ asset('song/turno.mp3') }}");
+                //     audio.play();
+                // }else{
+                //     //call with voice
+                //     voicePatient(patient_name, position);
+                // }
 
                 //close modal
                 setTimeout(() => {
@@ -156,14 +156,14 @@
 
         let synth = window.speechSynthesis
         let utterThis = new SpeechSynthesisUtterance(name)
-        utterThis.lang = 'en-US';
-        // utterThis.lang = 'es-ES';
+        // utterThis.lang = 'en-US';
+        utterThis.lang = 'es-ES';
         synth.speak(utterThis)
 
         setTimeout(()=>{
         let utterThis = new SpeechSynthesisUtterance('Favor pasar a la posicion '+position);
-        utterThis.lang = 'en-US';
-        // utterThis.lang = 'es-ES';
+        // utterThis.lang = 'en-US';
+        utterThis.lang = 'es-ES';
         synth.speak(utterThis);
         },1000);
 
