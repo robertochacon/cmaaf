@@ -13,11 +13,13 @@ class Rooms extends Model
 
     protected $fillable = [
         'name',
+        'areas',
         'images',
         'status',
     ];
 
     protected $casts = [
+        'areas' => 'array',
         'images' => 'array',
     ];
 

@@ -222,19 +222,24 @@ class ShiftsResource extends Resource
     public static function getEloquentQuery(): Builder
     {
         if (auth()->user()->isSuper()) {
+
             return parent::getEloquentQuery();
+
         }else if (auth()->user()->isAdmin()) {
-            return parent::getEloquentQuery()->whereDate('created_at', Carbon::today())->where('service', null);
+
+            $query = parent::getEloquentQuery()->whereDate('created_at', Carbon::today());
+            $query->where('service', null);
+            $query->orWhere('service', '');
+            return $query;
+
         }else if (auth()->user()->isDoctor()) {
 
             $services = auth()->user()->services;
-            $result = parent::getEloquentQuery()->whereDate('created_at', Carbon::today())->where('status', 'wait_doctor')->orWhere('status', 'call');
+            $query = parent::getEloquentQuery()->whereDate('created_at', Carbon::today());
+            $query->whereIn('status', ['wait_doctor']);
+            $query->orWhereIn('service', array_values($services));
 
-            foreach ($services as $key => $value) {
-                $result->orWhere('service', $value);
-            }
-
-            return $result;
+            return $query;
 
         }
     }

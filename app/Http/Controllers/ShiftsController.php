@@ -52,8 +52,10 @@ class ShiftsController extends Controller
     }
 
     public function screen($room){
-        $images = Rooms::where('name',$room)->first()['images'];
-        $shifts = Shifts::where('room', $room)->whereDate('created_at', Carbon::today())->orderBy('id','DESC')->limit(5)->get();
-        return view('shifts.screen', compact(['shifts','room','images']));
+        $getRoom = Rooms::where('name',$room)->first();
+        $images = $getRoom['images'];
+        $areas = $getRoom['areas'];
+        $shifts = Shifts::whereDate('created_at', Carbon::today())->whereIn('area', array_values($areas))->orderBy('id','DESC')->limit(5)->get();
+        return view('shifts.screen', compact(['shifts','room','areas','images']));
     }
 }

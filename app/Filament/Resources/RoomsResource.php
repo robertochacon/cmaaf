@@ -4,9 +4,11 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\RoomsResource\Pages;
 use App\Filament\Resources\RoomsResource\RelationManagers;
+use App\Models\Areas;
 use App\Models\Rooms;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
@@ -35,6 +37,11 @@ class RoomsResource extends Resource
         return $form
             ->schema([
                 TextInput::make('name')->required(),
+                Select::make('areas')
+                ->label('Areas')
+                ->multiple()
+                ->options(Areas::all()->pluck('name','name'))
+                ->searchable(),
                 FileUpload::make('images')
                 ->multiple()
                 ->reorderable()
@@ -54,6 +61,10 @@ class RoomsResource extends Resource
                 TextColumn::make('name')
                 ->label('Nombre')
                 ->searchable(),
+                TextColumn::make('areas')
+                ->default('N/A')
+                ->limit('10')
+                ->label('Area'),
                 ImageColumn::make('images')
                 ->label('Imagenes')
                 ->defaultImageUrl(url('/images/bg/horario.jpg'))

@@ -13,12 +13,12 @@ class Rooms extends Seeder
      */
     public function run(): void
     {
-        ModelsRooms::create(['name' => 'Sala 1']);
-        ModelsRooms::create(['name' => 'Sala 2']);
-        ModelsRooms::create(['name' => 'Sala 3']);
-        ModelsRooms::create(['name' => 'Sala 4']);
-        ModelsRooms::create(['name' => 'Sala 5']);
-        ModelsRooms::create(['name' => 'Sala 6']);
-        ModelsRooms::create(['name' => 'Sala 7']);
+        ModelsRooms::create(['name' => 'Sala 1','areas' => ['Facturación 1']]);
+        ModelsRooms::create(['name' => 'Sala 2','areas' => ['Laboratorio']]);
+        ModelsRooms::create(['name' => 'Sala 3','areas' => ['Facturación 2','Consultas']]);
+        ModelsRooms::create(['name' => 'Sala 4','areas' => ['Consultas']]);
+        ModelsRooms::create(['name' => 'Sala 5','areas' => ['Consultas']]);
+        ModelsRooms::create(['name' => 'Sala 6','areas' => ['Resultados']]);
+        ModelsRooms::create(['name' => 'Sala 7','areas' => ['Imágenes']]);
     }
 }

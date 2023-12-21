@@ -44,7 +44,7 @@
 
             <livewire:broadcasting/>
 
-            @livewire('shifts', ['room' => $room])
+            @livewire('shifts', ['room' => $room, 'areas' => $areas])
 
         </div>
 
@@ -70,7 +70,7 @@
                     @else
 
                             <center>
-                                <h1 class="text-dark" style="font-size: 100px"><b>Bienvenidos</b></h1>
+                                <h1 class="text-primary" style="font-size: 100px"><b>Bienvenidos</b></h1>
                                 <h1 class="text-secondary">Favor estar pendiente a su turno</h1>
                             </center>
 
