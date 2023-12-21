@@ -120,7 +120,6 @@ class ShiftsResource extends Resource
                 }),
             ])
             ->poll('1s')
-            ->deferLoading()
             ->filters([
                 //
             ])
