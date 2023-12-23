@@ -226,9 +226,13 @@ class ShiftsResource extends Resource
 
         }else if (auth()->user()->isAdmin()) {
 
+            $areas = array_values(auth()->user()->areas);
+
             $query = parent::getEloquentQuery()->whereDate('created_at', Carbon::today());
+            $query->whereIn('area', $areas);
             $query->where('service', null);
             $query->orWhere('service', '');
+
             return $query;
 
         }else if (auth()->user()->isDoctor()) {

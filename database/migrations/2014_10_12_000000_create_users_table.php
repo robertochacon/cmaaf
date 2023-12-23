@@ -18,7 +18,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('room')->nullable();
-            $table->string('area')->default('Facturación')->nullable();
+            $table->json('areas')->nullable();
             $table->string('window')->nullable();
             $table->json('services')->nullable();
             $table->enum('type', ['user', 'doctor', 'admin', 'super'])->default('user');

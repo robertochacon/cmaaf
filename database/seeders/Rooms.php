@@ -13,9 +13,9 @@ class Rooms extends Seeder
      */
     public function run(): void
     {
-        ModelsRooms::create(['name' => 'Sala 1','areas' => ['Facturación']]);
+        ModelsRooms::create(['name' => 'Sala 1','areas' => ['Laboratorio','Imágenes','Resultados']]);
         ModelsRooms::create(['name' => 'Sala 2','areas' => ['Laboratorio']]);
-        ModelsRooms::create(['name' => 'Sala 3','areas' => ['Facturación','Consultas']]);
+        ModelsRooms::create(['name' => 'Sala 3','areas' => ['Consultas']]);
         ModelsRooms::create(['name' => 'Sala 4','areas' => ['Consultas']]);
         ModelsRooms::create(['name' => 'Sala 5','areas' => ['Consultas']]);
         ModelsRooms::create(['name' => 'Sala 6','areas' => ['Resultados']]);

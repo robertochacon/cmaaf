@@ -4,6 +4,8 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
+use App\Models\Areas;
+use App\Models\Rooms;
 use App\Models\Services;
 use App\Models\User;
 use Filament\Forms;
@@ -37,10 +39,30 @@ class UserResource extends Resource
                 TextInput::make('name')->required(),
                 TextInput::make('email')->required()->email(),
                 TextInput::make('password')->required()->password()->hiddenOn('edit'),
+                Select::make('areas')
+                ->label('Areas')
+                ->multiple()
+                ->options(Areas::all()->pluck('name','name'))
+                ->searchable(),
+                Select::make('room')
+                ->label('Sala')
+                ->options(Rooms::all()->pluck('name','name'))
+                ->searchable(),
+                TextInput::make('window')
+                ->label('Posición')
+                ->required(),
                 Select::make('services')
                 ->multiple()
                 ->label('Servicios/Especialidades')
                 ->options(Services::all()->pluck('name', 'name'))
+                ->searchable(),
+                Select::make('type')
+                ->label('Tipo de usuario')
+                ->options([
+                    'doctor' => 'Doctor',
+                    'admin' => 'Administrador',
+                    'super' => 'Super Administrador',
+                ])
                 ->searchable(),
                 // Toggle::make('status')
             ]);
@@ -54,6 +76,7 @@ class UserResource extends Resource
                 ->searchable(),
                 TextColumn::make('email')->label('Email')
                 ->searchable(),
+                TextColumn::make('areas')->label('Areas')->default('N/A')->limit(15),
                 TextColumn::make('services')->label('Servicios')->default('N/A')->limit(15),
                 TextColumn::make('created_at')->since()->label('Creado'),
                 // ToggleColumn::make('status')->label('Estado')

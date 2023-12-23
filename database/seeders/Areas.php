@@ -13,11 +13,6 @@ class Areas extends Seeder
      */
     public function run(): void
     {
-        ModelsAreas::create([
-            'name' => 'Facturación',
-            'acronym' => 'FAC',
-            'created_at' => date("Y-m-d H:i:s")
-        ]);
 
         ModelsAreas::create([
             'name' => 'Laboratorio',
