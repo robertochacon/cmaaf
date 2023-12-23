@@ -67,7 +67,7 @@ class RoomsResource extends Resource
                 ->label('Area'),
                 ImageColumn::make('images')
                 ->label('Imagenes')
-                ->defaultImageUrl(url('/images/bg/horario.jpg'))
+                ->defaultImageUrl(url('/images/bg/no-imagen.jpg'))
                 ->circular()
                 ->stacked(),
                 TextColumn::make('created_at')->since()

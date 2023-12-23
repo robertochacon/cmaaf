@@ -9,6 +9,7 @@ use App\Models\Rooms;
 use App\Models\Services;
 use App\Models\User;
 use Filament\Forms;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -36,34 +37,46 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('name')->required(),
-                TextInput::make('email')->required()->email(),
-                TextInput::make('password')->required()->password()->hiddenOn('edit'),
-                Select::make('areas')
-                ->label('Areas')
-                ->multiple()
-                ->options(Areas::all()->pluck('name','name'))
-                ->searchable(),
-                Select::make('room')
-                ->label('Sala')
-                ->options(Rooms::all()->pluck('name','name'))
-                ->searchable(),
-                TextInput::make('window')
-                ->label('Posición')
-                ->required(),
-                Select::make('services')
-                ->multiple()
-                ->label('Servicios/Especialidades')
-                ->options(Services::all()->pluck('name', 'name'))
-                ->searchable(),
-                Select::make('type')
-                ->label('Tipo de usuario')
-                ->options([
-                    'doctor' => 'Doctor',
-                    'admin' => 'Administrador',
-                    'super' => 'Super Administrador',
+                Section::make()
+                ->schema([
+                    TextInput::make('name')->required(),
+                    TextInput::make('email')->required()->email(),
+                    TextInput::make('password')->required()->password()->hiddenOn('edit'),
+                    Select::make('type')
+                    ->label('Tipo de usuario')
+                    ->options([
+                        'doctor' => 'Doctor',
+                        'admin' => 'Administrador',
+                        'super' => 'Super Administrador',
+                    ])
+                    ->searchable(),
                 ])
-                ->searchable(),
+                ->columns(2),
+                Section::make()
+                ->schema([
+                    Select::make('room')
+                    ->label('Sala')
+                    ->options(Rooms::all()->pluck('name','name'))
+                    ->searchable(),
+                    TextInput::make('window')
+                    ->label('Posición')
+                    ->required(),
+                ])
+                ->columns(2),
+                Section::make()
+                ->schema([
+                    Select::make('areas')
+                    ->label('Areas')
+                    ->multiple()
+                    ->options(Areas::all()->pluck('name','name'))
+                    ->searchable(),
+                    Select::make('services')
+                    ->multiple()
+                    ->label('Servicios/Especialidades')
+                    ->options(Services::all()->pluck('name', 'name'))
+                    ->searchable(),
+                ])
+                ->columns(2)
                 // Toggle::make('status')
             ]);
     }
