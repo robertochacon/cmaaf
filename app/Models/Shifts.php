@@ -12,7 +12,7 @@ class Shifts extends Model
     protected $table = 'shifts';
 
     protected $fillable = [
-        'user_id','identification','patient_name','code','service','note','room','area','window','status',
+        'user_id','identification','patient_name','code','service','note','room','area','window','insurance','status',
     ];
     protected $appends = ['status_spanish'];
 

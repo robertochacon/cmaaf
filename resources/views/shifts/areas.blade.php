@@ -38,13 +38,14 @@
                     <div class="col-12 p-3 text-start">
                         <div class="row justify-content-between align-items-center">
                             <div class="col-6 text-start">
-                                <h1 class="text-success"><b>Hacia donde se dirige?</b></h1>
+                                <h1 class="text-success"><b>Seleccione la opción deseada</b></h1>
+                                {{-- <h1 class="text-success"><b>Hacia donde se dirige?</b></h1> --}}
                             </div>
-                            <div class="col-4 p-3 text-end">
+                            {{-- <div class="col-4 p-3 text-end">
                                 <a href="{{ url('turnos') }}" type="submit" class="container border-0 rounded shadow bg-secondary text-center text-white" style="text-decoration: none;">
                                     <h1>Atras</h1>
                                 </a>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
 

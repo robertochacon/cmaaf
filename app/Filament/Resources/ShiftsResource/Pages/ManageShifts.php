@@ -18,8 +18,8 @@ class ManageShifts extends ManageRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make()->label('Crear turno')
-            ->hidden(auth()->user()->isDoctor()),
+            // Actions\CreateAction::make()->label('Crear turno')
+            // ->hidden(auth()->user()->isDoctor()),
         ];
     }
 

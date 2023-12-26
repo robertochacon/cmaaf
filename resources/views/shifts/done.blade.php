@@ -69,7 +69,7 @@
     setTimeout(() => {
         window.print();
         setTimeout(() => {
-            window.location.href = '/turnos';
+            window.location.href = '/areas';
         }, 1000);
     }, 1000);
 

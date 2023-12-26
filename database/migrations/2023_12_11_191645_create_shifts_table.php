@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('room')->nullable();
             $table->string('area')->nullable();
             $table->string('window')->nullable();
+            $table->boolean('insurance')->default(false);
             $table->enum('status',['call','wait','wait_doctor','done','cancel'])->default('wait');
             $table->timestamps();
         });

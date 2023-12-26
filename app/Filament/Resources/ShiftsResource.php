@@ -14,6 +14,7 @@ use Filament\Forms;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
@@ -21,6 +22,7 @@ use Filament\Tables;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\SelectColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
@@ -69,7 +71,8 @@ class ShiftsResource extends Resource
                     'wait_doctor' => 'Es espera de un doctor',
                     'done' => 'Completado',
                     'cancel' => 'Cancelado',
-                ])
+                ]),
+                Toggle::make('insurance')
             ]);
     }
 
@@ -118,6 +121,8 @@ class ShiftsResource extends Resource
                     'Llamando' => 'info',
                     'Cancelado' => 'danger',
                 }),
+                ToggleColumn::make('insurance')
+                ->label('Seguro')
             ])
             ->poll('1s')
             ->filters([
@@ -213,10 +218,10 @@ class ShiftsResource extends Resource
         ];
     }
 
-    public static function getNavigationBadge(): ?string
-    {
-        return static::getModel()::whereIn('status', ['call','wait'])->count();
-    }
+    // public static function getNavigationBadge(): ?string
+    // {
+    //     return static::getModel()::whereIn('status', ['call','wait'])->count();
+    // }
 
     public static function getEloquentQuery(): Builder
     {
