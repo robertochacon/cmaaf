@@ -67,10 +67,20 @@
 
     window.focus();
     setTimeout(() => {
-        window.print();
+
+        BtPrint(document.getElementById('print').innerText)
+        // window.print();
         setTimeout(() => {
             window.location.href = '/areas';
         }, 1000);
+
     }, 1000);
+
+    function BtPrint(prn){
+        var S = "#Intent;scheme=rawbt;";
+        var P =  "package=ru.a402d.rawbtprinter;end;";
+        var textEncoded = encodeURI(prn);
+        window.location.href="intent:"+textEncoded+S+P;
+    }
 
 </script>

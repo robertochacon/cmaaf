@@ -113,6 +113,8 @@
         $('.carousel').carousel()
     });
 
+    const audio = new Audio("{{ asset('song/turno.mp3') }}");
+
     window.addEventListener('call-shift', event => {
 
         let patient_name = event.detail[0].shift.patient_name;
@@ -130,7 +132,6 @@
                 $("#llamada-turno").modal('show');
 
                 //play sound
-                const audio = new Audio("{{ asset('song/turno.mp3') }}");
                 audio.play();
 
                 // if (patient_name===null) {
@@ -147,7 +148,7 @@
                     $("#llamada-turno").modal('hide');
                 }, 5000);
 
-            }, 1000);
+            }, 500);
         }
 
     })

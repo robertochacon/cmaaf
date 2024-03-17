@@ -17,6 +17,8 @@
 
 <div class="p-5 fondo">
 
+    {{-- <a href="rawbt:Hello,%20world!%0A%0A%0A%0A%0AHello2"> Hello, world! </a> --}}
+
     <div class="p-0 m-0 shadow rounded">
 
         <div class="row justify-content-center centro">
