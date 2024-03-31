@@ -137,10 +137,10 @@
 <script>
 
     const cedulaElement = document.getElementById('cedula');
-    const maskOptions = {
-        mask: '000-0000000-0'
-    };
-    const mask = IMask(cedulaElement, maskOptions);
+    // const maskOptions = {
+    //     mask: '000-0000000-0'
+    // };
+    // const mask = IMask(cedulaElement, maskOptions);
 
     function add(n){
         let cedula = document.getElementById('cedula').value;
