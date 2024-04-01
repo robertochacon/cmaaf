@@ -32,7 +32,7 @@ class Turns
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('channel-turns'),
+            new Channel('channel-turns'),
         ];
     }
 }

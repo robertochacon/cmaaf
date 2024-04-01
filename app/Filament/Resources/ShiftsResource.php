@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Events\BroadcastingEvent;
+use App\Events\Turns;
 use App\Filament\Resources\ShiftsResource\Pages;
 use App\Filament\Resources\ShiftsResource\RelationManagers;
 use App\Models\Areas;
@@ -132,28 +133,31 @@ class ShiftsResource extends Resource
                 Action::make('Llamar')
                 ->action(function (Shifts $record, array $data): void {
 
-                    Notification::make()
-                    ->title('El turno '.$record->code.' se esta solicitando.')
-                    ->info()
-                    ->send();
+                    $msg = 'call_turn';
+                    event(new Turns($msg));
 
-                    $position = auth()->user()->window;
-                    $room = auth()->user()->room;
+                    // Notification::make()
+                    // ->title('El turno '.$record->code.' se esta solicitando.')
+                    // ->info()
+                    // ->send();
 
-                    $data = [
-                        'patient_name' => $record->patient_name,
-                        'room' => $room,
-                        'code' => $record->code,
-                        'position' => $position,
-                    ];
+                    // $position = auth()->user()->window;
+                    // $room = auth()->user()->room;
 
-                    event(new BroadcastingEvent($data));
+                    // $data = [
+                    //     'patient_name' => $record->patient_name,
+                    //     'room' => $room,
+                    //     'code' => $record->code,
+                    //     'position' => $position,
+                    // ];
 
-                    $shift = Shifts::find($record->id);
-                    $shift->room = $room;
-                    $shift->window = $position;
-                    $shift->status = 'call';
-                    $shift->save();
+                    // event(new BroadcastingEvent($data));
+
+                    // $shift = Shifts::find($record->id);
+                    // $shift->room = $room;
+                    // $shift->window = $position;
+                    // $shift->status = 'call';
+                    // $shift->save();
 
                 })
                 ->icon('heroicon-m-speaker-wave')
