@@ -133,31 +133,28 @@ class ShiftsResource extends Resource
                 Action::make('Llamar')
                 ->action(function (Shifts $record, array $data): void {
 
-                    $msg = 'call_turn';
-                    event(new Turns($msg));
+                    Notification::make()
+                    ->title('El turno '.$record->code.' se esta solicitando.')
+                    ->info()
+                    ->send();
 
-                    // Notification::make()
-                    // ->title('El turno '.$record->code.' se esta solicitando.')
-                    // ->info()
-                    // ->send();
+                    $position = auth()->user()->window;
+                    $room = auth()->user()->room;
 
-                    // $position = auth()->user()->window;
-                    // $room = auth()->user()->room;
+                    $data = [
+                        'patient_name' => $record->patient_name,
+                        'room' => $room,
+                        'code' => $record->code,
+                        'position' => $position,
+                    ];
 
-                    // $data = [
-                    //     'patient_name' => $record->patient_name,
-                    //     'room' => $room,
-                    //     'code' => $record->code,
-                    //     'position' => $position,
-                    // ];
+                    event(new BroadcastingEvent($data));
 
-                    // event(new BroadcastingEvent($data));
-
-                    // $shift = Shifts::find($record->id);
-                    // $shift->room = $room;
-                    // $shift->window = $position;
-                    // $shift->status = 'call';
-                    // $shift->save();
+                    $shift = Shifts::find($record->id);
+                    $shift->room = $room;
+                    $shift->window = $position;
+                    $shift->status = 'call';
+                    $shift->save();
 
                 })
                 ->icon('heroicon-m-speaker-wave')
