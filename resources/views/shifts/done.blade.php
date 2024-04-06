@@ -68,19 +68,11 @@
     window.focus();
     setTimeout(() => {
 
-        BtPrint(document.getElementById('print').innerText)
-        // window.print();
+        window.print();
         setTimeout(() => {
-            window.location.href = '/areas';
+            window.location.href = '/turnos';
         }, 1000);
 
     }, 1000);
-
-    function BtPrint(prn){
-        var S = "#Intent;scheme=rawbt;";
-        var P =  "package=ru.a402d.rawbtprinter;end;";
-        var textEncoded = encodeURI(prn);
-        window.location.href="intent:"+textEncoded+S+P;
-    }
 
 </script>

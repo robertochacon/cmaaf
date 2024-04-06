@@ -13,7 +13,8 @@ use Illuminate\Support\Str;
 class ShiftsController extends Controller
 {
     public function request(){
-        return view('shifts.request');
+        $areas = Areas::all();
+        return view('shifts.request', compact(['areas']));
     }
 
     public function areas(Request $request){
@@ -38,6 +39,7 @@ class ShiftsController extends Controller
         $shift->identification = $request->identification;
         $shift->patient_name = $name ?? null;
         $shift->code = $request->acronym.'-'.($totalToday+1);
+        $shift->insurance = $request->insurance;
         $shift->save();
 
         $date['date'] = Carbon::now()->format('d-m-Y');
