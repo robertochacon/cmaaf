@@ -42,10 +42,17 @@ class ShiftsController extends Controller
         $shift->insurance = $request->insurance;
         $shift->save();
 
+        $area = match(true){
+            $request->acronym == "LAB" => "Laboratorio",
+            $request->acronym == "IMA" => "Imágenes",
+            $request->acronym == "CON" => "Consultas",
+            $request->acronym == "RES" => "Resultados",
+        };
+
         $date['date'] = Carbon::now()->format('d-m-Y');
         $date['hour'] = Carbon::now()->format('H:i:m');
 
-        return view('shifts.done', compact(['shift','date']));
+        return view('shifts.done', compact(['shift','area','date']));
     }
 
     public function roomScreens(){
