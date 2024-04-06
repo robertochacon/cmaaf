@@ -53,13 +53,16 @@
                 @csrf
 
                 <div class="step" id="step-1">
-                    <hr>
-                    <div class="col-12 pb-2 p-5">
+
+                    <div class="col-12">
+                        <hr>
                         <h1 class="text-success"><b>Introduzca su cédula</b></h1>
+                        <hr>
                         <input type="text" name="identification" class="form-control p-2 text-end inputCedula" id="cedula">
+                        <br>
                     </div>
 
-                    <div class="row pt-0 p-5">
+                    <div class="row pt-0">
                         <div class="col-9">
                             <div class="row justify-content-around mt-1">
                                 <div class="col-4" onclick="add(1)" style="cursor:pointer;">
@@ -136,28 +139,38 @@
 
                 <div class="step" id="step-2">
                     <hr>
+                    <div class="col-12 pt-0 text-start">
+                        <div class="row justify-content-between align-items-center">
+                            <div class="col-8 text-start">
+                                <h1 class="text-success"><b>Seleccione una opción</b></h1>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+
                     <div class="row justify-content-around">
-                        <div class="col-6 text-center">
+                        <div class="col-6 mt-2 text-center">
 
                             <input type="radio" id="asegurado" name="insurance" value="true" hidden />
-                            <label for="asegurado">
-                                <span type="button" onclick="displayStep(3,2)" class="container p-3 mt-1 rounded shadow bg-success text-center text-white border-0">
+                            <label for="asegurado" style="width: 100%;">
+                                <span type="button" onclick="displayStep(3,2)" class="container p-3 mt-1 rounded shadow bg-primary text-center text-white border-0">
                                     <h1>Asegurado</h1>
                                 </span>
                             </label>
 
                         </div>
-                        <div class="col-6 text-center">
+                        <div class="col-6 mt-2 text-center">
 
                             <input type="radio" id="noasegurado" name="insurance" value="false" hidden />
-                            <label for="noasegurado">
-                                <span type="button" onclick="displayStep(3,2)" class="container p-3 mt-1 rounded shadow bg-success text-center text-white border-0">
+                            <label for="noasegurado" style="width: 100%;">
+                                <span type="button" onclick="displayStep(3,2)" class="container p-3 mt-1 rounded shadow bg-primary text-center text-white border-0">
                                     <h1>No asegurado</h1>
                                 </span>
                             </label>
 
                         </div>
                     </div>
+
                     <hr>
                     <div class="row justify-content-around">
                         <div class="col-5">
@@ -170,16 +183,17 @@
                 </div>
 
                 <div class="step" id="step-3">
-                    <hr>
-                    <div class="row justify-content-around p-5">
+                    <div class="row justify-content-around">
 
-                        <div class="col-12 p-3 pt-0 text-start">
+                        <hr>
+                        <div class="col-12 pt-0 text-start">
                             <div class="row justify-content-between align-items-center">
                                 <div class="col-8 text-start">
                                     <h1 class="text-success"><b>Seleccione la opción deseada</b></h1>
                                 </div>
                             </div>
                         </div>
+                        <hr>
 
                         @foreach ($areas as $area)
                         <div class="col-6 mt-2" style="cursor:pointer;">
