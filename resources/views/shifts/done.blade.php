@@ -57,7 +57,6 @@
 {{-- Template a imprimir --}}
 <div class="row justify-content-center centro" id="print">
     <center>
-        <br>
         <img src="{{ asset('images/logo.png') }}" alt="" width="200"  class="d-inline-block align-text-top">
         <br>
         <br>
@@ -66,7 +65,7 @@
         <h1><b>Turno<br>{{ $shift['code'] }}</b></h1>
         <hr>
         <h3>Servicio: {{ $shift['area'] }}</h3>
-        <h3>Tiempo promedio de atención 1 minutos</h3>
+        {{-- <h3>Tiempo promedio de atención 1 minutos</h3> --}}
         <p><b>Fecha:</b> {{ $date['date'] }} <b>Hora:</b> {{ $date['hour'] }}</p>
         <p></p>
     </center>
