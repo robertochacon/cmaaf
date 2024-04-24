@@ -15,7 +15,8 @@ use App\Http\Controllers\ShiftsController;
 */
 
 Route::get('/', function () {
-    return redirect('/admin');
+    // return redirect('/admin');
+    return view('welcome');
 });
 
 Route::get('/login', function () {

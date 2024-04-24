@@ -111,50 +111,58 @@
 
     $(document).ready(function(){
         $('.carousel').carousel()
+        conexionEvent();
+        setInterval(() => {
+            conexionEvent();
+        }, 500000);
     });
 
     const audio = new Audio("{{ asset('song/turno.mp3') }}");
 
-    try {
-        window.addEventListener('call-shift', event => {
+    function conexionEvent(){
 
-            let patient_name = event.detail[0].shift.patient_name;
-            let room = event.detail[0].shift.room;
-            let code = event.detail[0].shift.code;
-            let position = event.detail[0].shift.position;
+        try {
+            window.addEventListener('call-shift', event => {
 
-            $("#nshift").html(code);
-            $("#nposition").html(position);
+                let patient_name = event.detail[0].shift.patient_name;
+                let room = event.detail[0].shift.room;
+                let code = event.detail[0].shift.code;
+                let position = event.detail[0].shift.position;
 
-            if (room === '{{ $room }}') {
-                setTimeout(() => {
+                $("#nshift").html(code);
+                $("#nposition").html(position);
 
-                    //open modal
-                    $("#llamada-turno").modal('show');
-
-                    //play sound
-                    audio.play();
-
-                    // if (patient_name===null) {
-                    //     //play sound
-                    //     const audio = new Audio("{{ asset('song/turno.mp3') }}");
-                    //     audio.play();
-                    // }else{
-                    //     //call with voice
-                    //     voicePatient(patient_name, position);
-                    // }
-
-                    //close modal
+                if (room === '{{ $room }}') {
                     setTimeout(() => {
-                        $("#llamada-turno").modal('hide');
-                    }, 5000);
 
-                }, 500);
-            }
+                        //open modal
+                        $("#llamada-turno").modal('show');
 
-        })
-    } catch(e) {
-        window.onload = initialiseTable;
+                        //play sound
+                        audio.play();
+
+                        // if (patient_name===null) {
+                        //     //play sound
+                        //     const audio = new Audio("{{ asset('song/turno.mp3') }}");
+                        //     audio.play();
+                        // }else{
+                        //     //call with voice
+                        //     voicePatient(patient_name, position);
+                        // }
+
+                        //close modal
+                        setTimeout(() => {
+                            $("#llamada-turno").modal('hide');
+                        }, 5000);
+
+                    }, 500);
+                }
+
+            })
+        } catch(e) {
+            window.onload = initialiseTable;
+        }
+
     }
 
     function voicePatient(name, position){
