@@ -103,5 +103,57 @@ class Users extends Seeder
             'created_at' => date("Y-m-d H:i:s")
         ]);
 
+//////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////// Usuarios de asistencia en facturacion ///////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
+
+        ModelsUser::create([
+            'name' => 'Posición 1',
+            'email' => 'p1@cmaa',
+            'password' => bcrypt('p1cmaa'),
+            'room' => 'Sala 1',
+            'areas' => ['Laboratorio','Imágenes','Resultados'],
+            'window' => '1',
+            'remember_token' => null,
+            'type' => 'admin',
+            'created_at' => date("Y-m-d H:i:s")
+        ]);
+
+        ModelsUser::create([
+            'name' => 'Posición 2',
+            'email' => 'p2@cmaa',
+            'password' => bcrypt('p2cmaa'),
+            'room' => 'Sala 1',
+            'areas' => ['Laboratorio','Imágenes','Resultados'],
+            'window' => '1',
+            'remember_token' => null,
+            'type' => 'admin',
+            'created_at' => date("Y-m-d H:i:s")
+        ]);
+
+        ModelsUser::create([
+            'name' => 'Posición 3',
+            'email' => 'p3@cmaa',
+            'password' => bcrypt('p3cmaa'),
+            'room' => 'Sala 1',
+            'areas' => ['Laboratorio','Imágenes','Resultados'],
+            'window' => '1',
+            'remember_token' => null,
+            'type' => 'admin',
+            'created_at' => date("Y-m-d H:i:s")
+        ]);
+
+        ModelsUser::create([
+            'name' => 'Posición 4',
+            'email' => 'p4@cmaa',
+            'password' => bcrypt('p4cmaa'),
+            'room' => 'Sala 1',
+            'areas' => ['Laboratorio','Imágenes','Resultados'],
+            'window' => '1',
+            'remember_token' => null,
+            'type' => 'admin',
+            'created_at' => date("Y-m-d H:i:s")
+        ]);
+
     }
 }
