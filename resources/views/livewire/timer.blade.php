@@ -1,5 +1,9 @@
+@php
+    date_default_timezone_set('America/Santo_Domingo');
+@endphp
+
 <div>
     <div wire:poll.1ms>
-        <h2><b>Hora: {{ date("H:i:s") }}</b></h2>
+        <h2><b>Hora: {{ date("h:i:s A") }}</b></h2>
     </div>
 </div>
