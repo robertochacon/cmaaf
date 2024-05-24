@@ -125,7 +125,7 @@ class Users extends Seeder
             'password' => bcrypt('p2cmaa'),
             'room' => 'Sala 1',
             'areas' => ['Laboratorio','Imágenes','Resultados'],
-            'window' => '1',
+            'window' => '2',
             'remember_token' => null,
             'type' => 'admin',
             'created_at' => date("Y-m-d H:i:s")
@@ -137,7 +137,7 @@ class Users extends Seeder
             'password' => bcrypt('p3cmaa'),
             'room' => 'Sala 1',
             'areas' => ['Laboratorio','Imágenes','Resultados'],
-            'window' => '1',
+            'window' => '3',
             'remember_token' => null,
             'type' => 'admin',
             'created_at' => date("Y-m-d H:i:s")
@@ -149,7 +149,7 @@ class Users extends Seeder
             'password' => bcrypt('p4cmaa'),
             'room' => 'Sala 1',
             'areas' => ['Laboratorio','Imágenes','Resultados'],
-            'window' => '1',
+            'window' => '4',
             'remember_token' => null,
             'type' => 'admin',
             'created_at' => date("Y-m-d H:i:s")

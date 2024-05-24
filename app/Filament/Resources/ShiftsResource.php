@@ -133,11 +133,6 @@ class ShiftsResource extends Resource
                 Action::make('Llamar')
                 ->action(function (Shifts $record, array $data): void {
 
-                    Notification::make()
-                    ->title('El turno '.$record->code.' se esta solicitando.')
-                    ->info()
-                    ->send();
-
                     $position = auth()->user()->window;
                     $room = auth()->user()->room;
 
@@ -149,6 +144,11 @@ class ShiftsResource extends Resource
                     ];
 
                     event(new BroadcastingEvent($data));
+
+                    Notification::make()
+                    ->title('El turno '.$record->code.' se esta solicitando.')
+                    ->info()
+                    ->send();
 
                     $shift = Shifts::find($record->id);
                     $shift->room = $room;
