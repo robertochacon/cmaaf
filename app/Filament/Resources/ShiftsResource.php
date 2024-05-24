@@ -84,6 +84,7 @@ class ShiftsResource extends Resource
                 TextColumn::make('code')
                 ->default('N/A')
                 ->label('Codigo')
+                ->weight('bold')
                 ->searchable(),
                 // TextColumn::make('identification')
                 // ->default('N/A')
@@ -201,7 +202,7 @@ class ShiftsResource extends Resource
                 ->button()
                 ->hidden(auth()->user()->isDoctor()),
                 Tables\Actions\DeleteAction::make()
-                ->requiresConfirmation(false)
+                ->requiresConfirmation()
                 ->button(),
             ])
             ->bulkActions([
@@ -226,31 +227,26 @@ class ShiftsResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
-        if (auth()->user()->isSuper()) {
+        $user = auth()->user();
 
+        if ($user->isSuper()) {
             return parent::getEloquentQuery();
-
-        }else if (auth()->user()->isAdmin()) {
-
-            $areas = array_values(auth()->user()->areas);
-
-            $query = parent::getEloquentQuery()->whereDate('created_at', Carbon::today());
-            $query->whereIn('area', $areas);
-            $query->where('service', null);
-            $query->orWhere('service', '');
-
-            return $query;
-
-        }else if (auth()->user()->isDoctor()) {
-
-            $services = auth()->user()->services;
-            $query = parent::getEloquentQuery()->whereDate('created_at', Carbon::today());
-            $query->whereIn('status', ['wait_doctor']);
-            $query->orWhereIn('service', array_values($services));
-
-            return $query;
-
         }
+
+        $query = parent::getEloquentQuery()->whereDate('created_at', Carbon::today());
+
+        if ($user->isAdmin()) {
+            $query->whereIn('area', array_values($user->areas))
+                ->where(function ($query) {
+                    $query->whereNull('service')
+                        ->orWhere('service', '');
+                });
+        } elseif ($user->isDoctor()) {
+            $query->whereIn('status', ['wait_doctor'])
+                ->orWhereIn('service', array_values($user->services));
+        }
+
+        return $query;
     }
 
 }
