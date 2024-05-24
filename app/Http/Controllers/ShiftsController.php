@@ -50,7 +50,8 @@ class ShiftsController extends Controller
         };
 
         $date['date'] = Carbon::now()->format('d-m-Y');
-        $date['hour'] = Carbon::now()->format('H:i:m');
+        date_default_timezone_set('America/Santo_Domingo');
+        $date['hour'] = date("h:i:s a");
 
         return view('shifts.done', compact(['shift','area','date']));
     }
