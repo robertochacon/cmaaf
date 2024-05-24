@@ -4,6 +4,6 @@
 
 <div>
     <div wire:poll.1ms>
-        <h2><b>Hora: {{ date("h:i:s A") }}</b></h2>
+        <h2><b>Hora: {{ date("h:i:s a") }}</b></h2>
     </div>
 </div>
