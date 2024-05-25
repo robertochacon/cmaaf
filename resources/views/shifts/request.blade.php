@@ -49,16 +49,16 @@
                     </nav>
                 </div>
 
-                <form action="{{ url('turnos/solicitado') }}" method="GET">
+                <form action="{{ url('turnos/solicitado') }}" method="GET" id="request_turn">
                 @csrf
 
                 <div class="step" id="step-1">
 
                     <div class="col-12">
+                        {{-- <hr>
+                        <h1 style="font-size:80px;" class="text-success"><b>Introduzca su cédula</b></h1> --}}
                         <hr>
-                        <h1 style="font-size:80px;" class="text-success"><b>Introduzca su cédula</b></h1>
-                        <hr>
-                        <input type="text" name="identification" class="form-control p-2 text-end inputCedula" id="cedula">
+                        <input type="text" name="identification" class="form-control p-2 text-end inputCedula" id="cedula" placeholder="Introduzca su cédula">
                         <br>
                     </div>
 
@@ -67,51 +67,51 @@
                             <div class="row justify-content-around mt-1">
                                 <div class="col-4" onclick="add(1)" style="cursor:pointer;">
                                     <div class="container p-1 rounded shadow bg-secondary text-center text-white">
-                                        <h1 style="font-size:80px;"><b>1</b></h1>
+                                        <h1 style="font-size:60px;"><b>1</b></h1>
                                     </div>
                                 </div>
                                 <div class="col-4" onclick="add(2)" style="cursor:pointer;">
                                     <div class="container p-1 rounded shadow bg-secondary text-center text-white">
-                                        <h1 style="font-size:80px;"><b>2</b></h1>
+                                        <h1 style="font-size:60px;"><b>2</b></h1>
                                     </div>
                                 </div>
                                 <div class="col-4" onclick="add(3)" style="cursor:pointer;">
                                     <div class="container p-1 rounded shadow bg-secondary text-center text-white">
-                                        <h1 style="font-size:80px;"><b>3</b></h1>
+                                        <h1 style="font-size:60px;"><b>3</b></h1>
                                     </div>
                                 </div>
                             </div>
                             <div class="row justify-content-around mt-1">
                                 <div class="col-4" onclick="add(4)" style="cursor:pointer;">
                                     <div class="container p-1 rounded shadow bg-secondary text-center text-white">
-                                        <h1 style="font-size:80px;"><b>4</b></h1>
+                                        <h1 style="font-size:60px;"><b>4</b></h1>
                                     </div>
                                 </div>
                                 <div class="col-4" onclick="add(5)" style="cursor:pointer;">
                                     <div class="container p-1 rounded shadow bg-secondary text-center text-white">
-                                        <h1 style="font-size:80px;"><b>5</b></h1>
+                                        <h1 style="font-size:60px;"><b>5</b></h1>
                                     </div>
                                 </div>
                                 <div class="col-4" onclick="add(6)" style="cursor:pointer;">
                                     <div class="container p-1 rounded shadow bg-secondary text-center text-white">
-                                        <h1 style="font-size:80px;"><b>6</b></h1>
+                                        <h1 style="font-size:60px;"><b>6</b></h1>
                                     </div>
                                 </div>
                             </div>
                             <div class="row justify-content-around mt-1">
                                 <div class="col-4" onclick="add(7)" style="cursor:pointer;">
                                     <div class="container p-1 rounded shadow bg-secondary text-center text-white">
-                                        <h1 style="font-size:80px;"><b>7</b></h1>
+                                        <h1 style="font-size:60px;"><b>7</b></h1>
                                     </div>
                                 </div>
                                 <div class="col-4" onclick="add(8)" style="cursor:pointer;">
                                     <div class="container p-1 rounded shadow bg-secondary text-center text-white">
-                                        <h1 style="font-size:80px;"><b>8</b></h1>
+                                        <h1 style="font-size:60px;"><b>8</b></h1>
                                     </div>
                                 </div>
                                 <div class="col-4" onclick="add(9)" style="cursor:pointer;">
                                     <div class="container p-1 rounded shadow bg-secondary text-center text-white">
-                                        <h1 style="font-size:80px;"><b>9</b></h1>
+                                        <h1 style="font-size:60px;"><b>9</b></h1>
                                     </div>
                                 </div>
                             </div>
@@ -119,17 +119,17 @@
                         <div class="col-3">
                             <div class="col-12" onclick="add(0)" style="cursor:pointer;">
                                 <div class="container p-1 mt-1 rounded shadow bg-secondary text-center text-white">
-                                    <h1 style="font-size:80px;"><b>0</b></h1>
+                                    <h1 style="font-size:60px;"><b>0</b></h1>
                                 </div>
                             </div>
                             <div class="col-12" onclick="removeN()" style="cursor:pointer;">
                                 <button type="button" class="container p-3 mt-1 rounded shadow bg-danger text-center text-white border-0">
-                                    <h1 style="font-size:60px;">Borrar</h1>
+                                    <h1 style="font-size:40px;">Borrar</h1>
                                 </button>
                             </div>
                             <div class="col-12" style="cursor:pointer;">
                                 <button type="button" onclick="displayStep(2,1)" class="container p-3 mt-1 rounded shadow bg-success text-center text-white border-0">
-                                    <h1 style="font-size:60px;">Siguiente</h1>
+                                    <h1 style="font-size:40px;">Siguiente</h1>
                                 </button>
                             </div>
                         </div>
@@ -142,7 +142,7 @@
                     <div class="col-12 pt-0 text-start">
                         <div class="row justify-content-between align-items-center">
                             <div class="col-12 text-start">
-                                <h1 class="text-success" style="font-size:80px;"><b>Seleccione una opción</b></h1>
+                                <h1 class="text-success" style="font-size:60px;"><b>Seleccione una opción</b></h1>
                             </div>
                         </div>
                     </div>
@@ -154,7 +154,7 @@
                             <input type="radio" id="asegurado" name="insurance" value="true" hidden />
                             <label for="asegurado" style="width: 100%;">
                                 <span type="button" onclick="displayStep(3,2)" class="container p-3 mt-1 rounded shadow bg-primary text-center text-white border-0">
-                                    <h1 style="font-size:80px;">Asegurado</h1>
+                                    <h1 style="font-size:60px;">Asegurado</h1>
                                 </span>
                             </label>
 
@@ -164,7 +164,7 @@
                             <input type="radio" id="noasegurado" name="insurance" value="false" hidden />
                             <label for="noasegurado" style="width: 100%;">
                                 <span type="button" onclick="displayStep(3,2)" class="container p-3 mt-1 rounded shadow bg-primary text-center text-white border-0">
-                                    <h1 style="font-size:80px;">No asegurado</h1>
+                                    <h1 style="font-size:60px;">No asegurado</h1>
                                 </span>
                             </label>
 
@@ -175,7 +175,7 @@
                     <div class="row justify-content-around">
                         <div class="col-5">
                             <button type="button" onclick="displayStep(1,2)" class="container p-1 mt-1 rounded shadow bg-secondary text-center text-white border-0">
-                                <h1 style="font-size:80px;">Volver</h1>
+                                <h1 style="font-size:60px;">Volver</h1>
                             </button>
                         </div>
                     </div>
@@ -189,7 +189,7 @@
                         <div class="col-12 pt-0 text-start">
                             <div class="row justify-content-between align-items-center">
                                 <div class="col-12 text-start">
-                                    <h1 style="font-size:80px;" class="text-success"><b>Seleccione la opción deseada</b></h1>
+                                    <h1 style="font-size:60px;" class="text-success"><b>Seleccione la opción deseada</b></h1>
                                 </div>
                             </div>
                         </div>
@@ -198,14 +198,15 @@
                         @foreach ($areas as $area)
                         <div class="col-6 mt-2" style="cursor:pointer;">
 
-                                <button type="submit" class="container border-0 p-3 rounded shadow bg-primary text-center text-white">
-                                    <h1 style="font-size:80px;"><b>{{ $area['name'] }}</b></h1>
+                                <button type="button" class="container border-0 p-3 rounded shadow bg-primary text-center text-white" onclick="setArea('{{ $area['name'] }}','{{ $area['acronym'] }}')">
+                                    <h1 style="font-size:60px;"><b>{{ $area['name'] }}</b></h1>
                                 </button>
-                                <input type="hidden" name="area" value="{{ $area['name'] }}">
-                                <input type="hidden" name="acronym" value="{{ $area['acronym'] }}">
 
                         </div>
                         @endforeach
+
+                        <input type="hidden" name="area" id="area">
+                        <input type="hidden" name="acronym" id="acronym">
 
                     </div>
 
@@ -265,5 +266,17 @@
 
     displayStep(1,2);
 
+    function setArea(name, acronym) {
+        const nameField = document.getElementById('area');
+        const acronymField = document.getElementById('acronym');
+
+        if (nameField && acronymField) {
+            nameField.value = name;
+            acronymField.value = acronym;
+            setTimeout(() => {
+                document.getElementById('request_turn').submit();
+            }, 500);
+        }
+    }
 
 </script>
