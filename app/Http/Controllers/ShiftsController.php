@@ -24,36 +24,44 @@ class ShiftsController extends Controller
     }
 
     public function save(Request $request){
+        try{
 
-        $totalToday = Shifts::where('area', $request->area)->whereDate('created_at', Carbon::today())->count();
+            $totalToday = Shifts::where('area', $request->area)->whereDate('created_at', Carbon::today())->count();
 
-        $jce = (new Jce())->getPerson(Str::remove('-', $request->identification));
+            $jce = (new Jce())->getPerson(Str::remove('-', $request->identification));
 
-        $name = null;
+            $name = null;
 
-        if (isset($jce['nombre'])) {
-            $name = $jce['nombre'].' '.$jce['apellidos'];
+            if (isset($jce['nombre'])) {
+                $name = $jce['nombre'].' '.$jce['apellidos'];
+            }
+
+            $shift = Shifts::create($request->all());
+            $shift->identification = $request->identification;
+            $shift->patient_name = $name ?? null;
+            $shift->code = $request->acronym.'-'.($totalToday+1);
+            $shift->insurance = $request->insurance;
+            $shift->save();
+
+            $area = match(true){
+                $request->acronym == "LAB" => "Laboratorio",
+                $request->acronym == "IMA" => "Imágenes",
+                $request->acronym == "CON" => "Consultas",
+                $request->acronym == "RES" => "Resultados",
+            };
+
+            $date['date'] = Carbon::now()->format('d-m-Y');
+            date_default_timezone_set('America/Santo_Domingo');
+            $date['hour'] = date("h:i:s a");
+
+            // return view('shifts.done', compact(['shift','area','date']));
+
+            return response()->json(['shift' => $shift, 'area' => $area, 'date' => $date, 'status' => true]);
+
+
+        }catch (\Throwable $th) {
+            return response()->json(['status' => false]);
         }
-
-        $shift = Shifts::create($request->all());
-        $shift->identification = $request->identification;
-        $shift->patient_name = $name ?? null;
-        $shift->code = $request->acronym.'-'.($totalToday+1);
-        $shift->insurance = $request->insurance;
-        $shift->save();
-
-        $area = match(true){
-            $request->acronym == "LAB" => "Laboratorio",
-            $request->acronym == "IMA" => "Imágenes",
-            $request->acronym == "CON" => "Consultas",
-            $request->acronym == "RES" => "Resultados",
-        };
-
-        $date['date'] = Carbon::now()->format('d-m-Y');
-        date_default_timezone_set('America/Santo_Domingo');
-        $date['hour'] = date("h:i:s a");
-
-        return view('shifts.done', compact(['shift','area','date']));
     }
 
     public function roomScreens(){
