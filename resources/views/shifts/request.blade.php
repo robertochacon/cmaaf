@@ -379,12 +379,6 @@
                 setTimeout(() => {
                     window.print();
                     setTimeout(() => {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Accion completada',
-                            showConfirmButton: false,
-                            timer: 1000
-                        })
                         displayStep(1,2);
                         displayStep(1,3);
                         displayScreen(1,2);
