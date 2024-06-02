@@ -20,7 +20,9 @@ class Shifts extends Model
         return match (true) {
             $this->status == 'call' => 'Llamando',
             $this->status == 'cancel' => 'Cancelado',
+            $this->status == 'wait' => 'En espera',
             $this->status == 'wait_doctor' => 'En espera',
+            $this->status == 'done' => 'Atendido',
             default => 'Sin atender',
         };
     }

@@ -165,20 +165,19 @@ class ShiftsResource extends Resource
                 Action::make('Atendido') //from admin or super
                 ->action(function (Shifts $record, array $data): void {
 
+                    $record->update(['status' => 'wait_doctor']);
+
                     Notification::make()
                     ->title('El turno '.$record->code.' fue atendido.')
                     ->success()
                     ->send();
-
-                    $shift = Shifts::find($record->id);
-                    $shift->status = 'wait_doctor';
-                    $shift->save();
 
                 })
                 ->icon('heroicon-m-check-circle')
                 ->color('warning')
                 ->button()
                 ->labeledFrom('lg')
+                ->visible(fn (Shifts $record) => !is_null($record->service))
                 ->hidden(auth()->user()->isDoctor()),
                 Action::make('Completado') //from doctor
                 ->action(function (Shifts $record, array $data): void {
@@ -239,7 +238,8 @@ class ShiftsResource extends Resource
             $query->whereIn('area', array_values($user->areas))
                 ->where(function ($query) {
                     $query->whereNull('service')
-                        ->orWhere('service', '');
+                        ->where('status', 'call')
+                        ->orWhere('status', 'wait');
                 });
         } elseif ($user->isDoctor()) {
             $query->whereIn('status', ['wait_doctor'])
