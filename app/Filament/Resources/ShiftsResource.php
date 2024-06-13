@@ -126,7 +126,7 @@ class ShiftsResource extends Resource
                 ToggleColumn::make('insurance')
                 ->label('Seguro')
             ])
-            ->poll('1s')
+            ->poll('60s')
             ->filters([
                 //
             ])
@@ -187,9 +187,7 @@ class ShiftsResource extends Resource
                     ->success()
                     ->send();
 
-                    $shift = Shifts::find($record->id);
-                    $shift->status = 'done';
-                    $shift->save();
+                    $record->delete();
 
                 })
                 ->icon('heroicon-m-check-circle')
@@ -203,6 +201,21 @@ class ShiftsResource extends Resource
                 Tables\Actions\DeleteAction::make()
                 ->requiresConfirmation()
                 ->button(),
+            ])
+            ->headerActions([
+                Action::make('refresh')
+                    ->label('Actualizar lista')
+                    ->color('info')
+                    ->action(function ($livewire){
+
+                        $livewire->resetTable();
+
+                        Notification::make()
+                        ->title('Lista de turno actualizada.')
+                        ->info()
+                        ->send();
+
+                    })
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

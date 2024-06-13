@@ -282,17 +282,21 @@
 {{-- Template a imprimir --}}
 <div class="row justify-content-center centro" id="print">
     <center>
-        <img src="{{ asset('images/logo.png') }}" alt="" width="200"  class="d-inline-block align-text-top">
-        <br>
-        <br>
-        <h3>Bienvenido(a)</h3>
-        <hr>
-        <h1><b>Turno<br><p id="code-print"></p></b></h1>
-        <hr>
-        <h3>Servicio: <p id="area-print"></p></h3>
-        {{-- <h3>Tiempo promedio de atención 1 minutos</h3> --}}
-        <p><b>Fecha:</b> <p id="date-print"></p> <b>Hora:</b> <p id="hour-print"></p></p>
-        <p></p>
+        <div>
+            <img src="{{ asset('images/logo.png') }}" alt="" width="200"  class="d-inline-block align-text-top">
+            <br>
+            {{-- <br>
+            <h3>Bienvenido(a)</h3> --}}
+            <hr>
+            <h1><p id="code-print"></p></h1>
+            <hr>
+            {{-- <h3>Tiempo promedio de atención 1 minutos</h3> --}}
+            <p>
+                <h4><p id="area-print"></p></h4>
+                <h5><p id="date-print"></p></h5>
+            </p>
+            <p></p>
+        </div>
     </center>
 </div>
 
@@ -368,10 +372,9 @@
             success: function(res) {
 
                 $('#code-detail-print').html(res.shift.code);
-                $('#code-print').html(res.shift.code);
-                $('#area-print').html(res.shift.area);
-                $('#date-print').html(res.date.date);
-                $('#hour-print').html(res.date.hour);
+                $('#code-print').html('<b>Turno: '+res.shift.code+'</b>');
+                $('#area-print').html('<b>Servicio:</b> '+res.shift.area);
+                $('#date-print').html('<b>Fecha:</b> '+res.date.date+' <b style="margin-left:20px;">Hora:</b> '+res.date.hour);
 
                 $('#request_turn').get(0).reset();
                 displayScreen(2,1);
