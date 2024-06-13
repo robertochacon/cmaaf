@@ -287,9 +287,9 @@
             <br>
             {{-- <br>
             <h3>Bienvenido(a)</h3> --}}
-            <hr>
+            {{-- <hr> --}}
             <h1><p id="code-print"></p></h1>
-            <hr>
+            {{-- <hr> --}}
             {{-- <h3>Tiempo promedio de atención 1 minutos</h3> --}}
             <p>
                 <h4><p id="area-print"></p></h4>
@@ -374,7 +374,8 @@
                 $('#code-detail-print').html(res.shift.code);
                 $('#code-print').html('<b>Turno: '+res.shift.code+'</b>');
                 $('#area-print').html('<b>Servicio:</b> '+res.shift.area);
-                $('#date-print').html('<b>Fecha:</b> '+res.date.date+' <b style="margin-left:20px;">Hora:</b> '+res.date.hour);
+                $('#date-print').html('<b>Fecha:</b> '+res.date.date+' <br><b>Hora:</b> '+res.date.hour);
+                // $('#date-print').html('<b>Fecha:</b> '+res.date.date+' <b style="margin-left:20px;">Hora:</b> '+res.date.hour);
 
                 $('#request_turn').get(0).reset();
                 displayScreen(2,1);
