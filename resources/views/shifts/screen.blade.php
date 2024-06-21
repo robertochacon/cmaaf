@@ -110,6 +110,77 @@
 <script>
 
     $(document).ready(function(){
+        $('.carousel').carousel();
+        conexionEvent();
+        setInterval(() => {
+            conexionEvent();
+        }, 500000);
+    });
+
+    const audio = new Audio("{{ asset('song/turno.mp3') }}");
+    let isProcessingEvent = false; // Flag to prevent multiple executions
+
+    function conexionEvent(){
+        if (isProcessingEvent) return; // If already processing, exit function
+
+        isProcessingEvent = true; // Set flag to true to prevent re-entry
+
+        try {
+            window.addEventListener('call-shift', event => {
+
+                let patient_name = event.detail[0].shift.patient_name;
+                let room = event.detail[0].shift.room;
+                let code = event.detail[0].shift.code;
+                let position = event.detail[0].shift.position;
+
+                $("#nshift").html(code);
+                $("#nposition").html(position);
+
+                if (room === '{{ $room }}') {
+                    setTimeout(() => {
+
+                        //open modal
+                        $("#llamada-turno").modal('show');
+
+                        //call turn
+                        voicePatient(code, position);
+
+                        //close modal
+                        setTimeout(() => {
+                            $("#llamada-turno").modal('hide');
+                            isProcessingEvent = false; // Reset flag after processing
+                        }, 5000);
+
+                    }, 500);
+                } else {
+                    isProcessingEvent = false; // Reset flag if room doesn't match
+                }
+
+            });
+        } catch(e) {
+            window.onload = initialiseTable;
+            isProcessingEvent = false; // Reset flag if there is an error
+        }
+    }
+
+    function voicePatient(code, position){
+        let synth = window.speechSynthesis;
+        let utterThis = new SpeechSynthesisUtterance('Turno: ' + code);
+        utterThis.lang = 'es-ES';
+        synth.speak(utterThis);
+
+        setTimeout(() => {
+            let utterThis = new SpeechSynthesisUtterance('Favor pasar a la posicion ' + position);
+            utterThis.lang = 'es-ES';
+            synth.speak(utterThis);
+        }, 1000);
+    }
+
+</script>
+
+{{-- <script>
+
+    $(document).ready(function(){
         $('.carousel').carousel()
         conexionEvent();
         setInterval(() => {
@@ -174,4 +245,4 @@
 
     }
 
-</script>
+</script> --}}

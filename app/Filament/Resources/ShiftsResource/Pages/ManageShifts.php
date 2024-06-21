@@ -28,18 +28,21 @@ class ManageShifts extends ManageRecords
     //     return [
     //         'Todos' => Tab::make()
     //             ->badge(Shifts::query()->count()),
-    //         'LLamados' => Tab::make()
-    //             ->modifyQueryUsing(fn (Builder $query) => $query->where('status', 'call'))
-    //             ->badge(Shifts::query()->where('status', 'call')->count()),
-    //         'En espera' => Tab::make()
-    //             ->modifyQueryUsing(fn (Builder $query) => $query->where('status', 'wait'))
-    //             ->badge(Shifts::query()->where('status', 'wait')->count()),
-    //         'Completados' => Tab::make()
-    //             ->modifyQueryUsing(fn (Builder $query) => $query->where('status', 'done'))
-    //             ->badge(Shifts::query()->where('status', 'done')->count()),
-    //         'Cancelados' => Tab::make()
-    //             ->modifyQueryUsing(fn (Builder $query) => $query->where('status', 'cancel'))
-    //             ->badge(Shifts::query()->where('status', 'cancel')->count()),
+    //         'Preferenciales' => Tab::make()
+    //             ->modifyQueryUsing(fn (Builder $query) => $query->where('area', 'Preferencial'))
+    //             ->badge(Shifts::query()->where('area', 'Preferencial')->count()),
+    //         'Laboratorio' => Tab::make()
+    //             ->modifyQueryUsing(fn (Builder $query) => $query->where('area', 'Laboratorio'))
+    //             ->badge(Shifts::query()->where('area', 'Laboratorio')->count()),
+    //         'Imágenes' => Tab::make()
+    //             ->modifyQueryUsing(fn (Builder $query) => $query->where('area', 'Imágenes'))
+    //             ->badge(Shifts::query()->where('area', 'Imágenes')->count()),
+    //         'Consultas' => Tab::make()
+    //             ->modifyQueryUsing(fn (Builder $query) => $query->where('area', 'Consultas'))
+    //             ->badge(Shifts::query()->where('area', 'Consultas')->count()),
+    //         'Resultados' => Tab::make()
+    //             ->modifyQueryUsing(fn (Builder $query) => $query->where('area', 'Resultados'))
+    //             ->badge(Shifts::query()->where('area', 'Resultados')->count()),
     //     ];
     // }
 

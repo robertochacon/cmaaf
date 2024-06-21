@@ -211,13 +211,15 @@
                             <hr>
 
                             @foreach ($areas as $area)
-                            <div class="col-6 mt-2" style="cursor:pointer;">
+                                @if ($area['status'])
+                                <div class="col-6 mt-2" style="cursor:pointer;">
 
                                     <button type="button" class="container border-0 p-3 rounded shadow bg-primary text-center text-white" onclick="setArea('{{ $area['name'] }}','{{ $area['acronym'] }}')">
                                         <h1 style="font-size:60px;"><b>{{ $area['name'] }}</b></h1>
                                     </button>
 
-                            </div>
+                                </div>
+                                @endif
                             @endforeach
 
                             <input type="hidden" name="area" id="area">
